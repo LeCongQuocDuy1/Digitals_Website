@@ -4,7 +4,7 @@ module.exports = {
     theme: {
         extend: {
             width: {
-                main: "1220px",
+                main: "1180px",
             },
             backgroundColor: {
                 main: "#f9ba48",
