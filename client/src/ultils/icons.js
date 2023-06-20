@@ -6,6 +6,7 @@ import {
     FaGoogle,
     FaPinterest,
     FaPhoneAlt,
+    FaListUl,
 } from "react-icons/fa";
 import { BiChevronDown } from "react-icons/bi";
 import { HiMail } from "react-icons/hi";
@@ -26,6 +27,7 @@ const icons = {
     FiHeart,
     BsFillHandbagFill,
     AiFillCaretDown,
+    FaListUl,
 };
 
 export default icons;
