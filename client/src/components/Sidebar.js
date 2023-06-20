@@ -1,30 +1,20 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { NavLink } from "react-router-dom";
-import { apiGetCategory } from "../apis/app";
 import icons from "../ultils/icons";
 import sidebarIcon from "../assets/sidebar-icon/camera.png";
-import { createSlug } from "../ultils/helpers";
+// import { createSlug } from "../ultils/helpers";
+import { useSelector } from "react-redux";
 
 const Sidebar = () => {
-    const [categories, setCategories] = useState(null);
-
-    const fetchCategories = async () => {
-        const response = await apiGetCategory();
-        if (response.success) setCategories(response.productCategories);
-    };
-
+    const { categories } = useSelector((state) => state.app);
     console.log(categories);
-
-    useEffect(() => {
-        fetchCategories();
-    }, []);
 
     return (
         <div className="">
             <div className="bg-main flex items-center px-[20px] py-[10px]">
                 <icons.FaListUl className="text-[#fff] text-[16px] mr-[15px]" />
                 <div className="uppercase text-[17px] font-[600] text-[#fff]">
-                    All collections
+                    All Collections
                 </div>
             </div>
             <ul className="border-[1px] border-[#e4e6eb]">

@@ -8,7 +8,7 @@ const Home = () => {
             <div className="w-[25%] max-h-[480px]">
                 <Sidebar />
             </div>
-            <div className="w-[75%] max-h-[480px] bg-blue-500 h-[500px]">
+            <div className="w-[75%] max-h-[480px]">
                 <Banner />
             </div>
         </div>
