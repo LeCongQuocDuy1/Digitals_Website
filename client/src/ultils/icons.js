@@ -5,11 +5,11 @@ import {
     FaInstagram,
     FaGoogle,
     FaPinterest,
-    FaPhoneAlt,  
+    FaPhoneAlt,
+    FaListUl,
     FaFlickr,
-    
 } from "react-icons/fa";
-import { BiChevronDown } from "react-icons/bi"; 
+import { BiChevronDown } from "react-icons/bi";
 import { HiMail } from "react-icons/hi";
 import { FiHeart } from "react-icons/fi";
 import { BsFillHandbagFill } from "react-icons/bs";
@@ -24,7 +24,6 @@ import { MdPayments } from "react-icons/md";
 import { SiWebmoney } from "react-icons/si";
 import { SiDiscover } from "react-icons/si";
 
-
 const icons = {
     FaMoneyBillAlt,
     BiChevronDown,
@@ -38,7 +37,8 @@ const icons = {
     FiHeart,
     BsFillHandbagFill,
     AiFillCaretDown,
-    MdPlace, 
+    FaListUl,
+    MdPlace,
     ImLinkedin2,
     FaFlickr,
     SiVisa,
