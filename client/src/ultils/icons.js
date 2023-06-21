@@ -8,21 +8,25 @@ import {
     FaPhoneAlt,
     FaListUl,
     FaFlickr,
+    FaEye,
 } from "react-icons/fa";
 import { BiChevronDown } from "react-icons/bi";
-import { HiMail } from "react-icons/hi";
+import { HiMail, HiOutlineViewList } from "react-icons/hi";
 import { FiHeart } from "react-icons/fi";
-import { BsFillHandbagFill } from "react-icons/bs";
-import { AiFillCaretDown } from "react-icons/ai";
+import { BsFillHandbagFill, BsFillSuitHeartFill } from "react-icons/bs";
+import { AiFillCaretDown, AiFillStar, AiOutlineStar } from "react-icons/ai";
 import { MdPlace } from "react-icons/md";
 import { ImLinkedin2 } from "react-icons/im";
-import { SiVisa } from "react-icons/si";
 import { FaCcMastercard } from "react-icons/fa";
-import { SiAmericanexpress } from "react-icons/si";
 import { FaCcPaypal } from "react-icons/fa";
 import { MdPayments } from "react-icons/md";
-import { SiWebmoney } from "react-icons/si";
-import { SiDiscover } from "react-icons/si";
+import {
+    SiWebmoney,
+    SiDiscover,
+    SiAmericanexpress,
+    SiVisa,
+} from "react-icons/si";
+import { GrNext, GrPrevious } from "react-icons/gr";
 
 const icons = {
     FaMoneyBillAlt,
@@ -48,6 +52,13 @@ const icons = {
     MdPayments,
     SiWebmoney,
     SiDiscover,
+    AiFillStar,
+    GrNext,
+    GrPrevious,
+    AiOutlineStar,
+    FaEye,
+    HiOutlineViewList,
+    BsFillSuitHeartFill,
 };
 
 export default icons;
