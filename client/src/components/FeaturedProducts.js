@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { renderRatings, formatMoney } from "../ultils/helpers";
 import icons from "../ultils/icons";
-import { apiGetProducts } from "../apis/";
+import { apiGetProducts } from "../apis";
 import FeaturedGallery from "./FeaturedGallery";
 
 const FeaturedProducts = () => {
@@ -22,7 +22,7 @@ const FeaturedProducts = () => {
     }, []);
 
     return (
-        <div className="mt-[30px] w-main mb-[200px]">
+        <div className="mt-[30px] w-main mb-[100px]">
             <div className="flex items-center border-b-[3px] border-main w-full pb-[15px]">
                 <div className="uppercase text-[#000] text-[20px] font-[600] leading-[25px]">
                     FEATURED PRODUCTS

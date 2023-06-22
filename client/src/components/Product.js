@@ -71,7 +71,7 @@ const Product = ({ product, isNew, pid }) => {
                 </div>
             </div>
             {isShowOptions && (
-                <div className="absolute bottom-[17%] right-[18%] z-[2] p-[20px] flex gap-[10px] items-center animate-slide-top">
+                <div className="absolute bottom-[17%] right-[20%] z-[2] p-[20px] flex gap-[10px] items-center animate-slide-top">
                     <SelectOptions icon={<icons.BsFillSuitHeartFill />} />
                     <SelectOptions icon={<icons.HiOutlineViewList />} />
                     <SelectOptions icon={<icons.FaEye />} />
