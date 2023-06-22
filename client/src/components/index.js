@@ -5,3 +5,4 @@ export { default as Navigation } from "./Navigation";
 export { default as Sidebar } from "./Sidebar";
 export { default as Sellers } from "./Sellers";
 export { default as DealDaily } from "./DealDaily";
+export { default as FeaturedProducts } from "./FeaturedProducts";
