@@ -77,7 +77,7 @@ const NewArrivals = () => {
     }, [activeTab, smartPhone, tablet, laptop]);
 
     return (
-        <div className="mt-[30px] w-main mb-[40px]">
+        <div className="mt-[30px] w-main mb-[10px] overflow-x-hidden">
             <div className="flex items-center justify-between border-b-[3px] border-main w-full pb-[15px]">
                 <div className="uppercase text-[#000] text-[20px] font-[600] leading-[25px]">
                     NEW ARRIVALS

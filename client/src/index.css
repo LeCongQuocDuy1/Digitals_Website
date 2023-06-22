@@ -41,11 +41,20 @@
     color: #f9ba48 !important;
 }
 
+.slick-slide {
+    margin: 0 10px;
+}
+
+/* the parent */
+.slick-list {
+    margin: 0 -10px;
+}
+
 .slick-track {
     display: flex;
     align-items: center;
-    gap: 20px;
-    margin: 0 -15px;
+    /* gap: 0px;
+    margin: 0px; */
 }
 
 .slick-slider button.slick-arrow.slick-next {

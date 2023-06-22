@@ -19,7 +19,7 @@ import { MdPlace } from "react-icons/md";
 import { ImLinkedin2 } from "react-icons/im";
 import { FaCcMastercard } from "react-icons/fa";
 import { FaCcPaypal } from "react-icons/fa";
-import { MdPayments } from "react-icons/md";
+import { MdPayments, MdNavigateNext } from "react-icons/md";
 import {
     SiWebmoney,
     SiDiscover,
@@ -59,6 +59,7 @@ const icons = {
     FaEye,
     HiOutlineViewList,
     BsFillSuitHeartFill,
+    MdNavigateNext,
 };
 
 export default icons;

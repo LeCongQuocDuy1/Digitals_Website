@@ -6,6 +6,7 @@ import {
     DealDaily,
     FeaturedProducts,
     NewArrivals,
+    HotCollections,
 } from "../../components/";
 const Home = () => {
     return (
@@ -23,6 +24,7 @@ const Home = () => {
             <div className="w-main m-auto">
                 <FeaturedProducts />
                 <NewArrivals />
+                <HotCollections />
             </div>
         </React.Fragment>
     );

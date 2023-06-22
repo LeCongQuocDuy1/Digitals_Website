@@ -27,6 +27,7 @@ const fn2 = async (category) => {
     await Category.create({
         title: category?.cate,
         brand: category?.brand,
+        icon: category?.icon,
         image: category?.image,
     });
 };
