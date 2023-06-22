@@ -1,13 +1,11 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import icons from "../ultils/icons";
-import sidebarIcon from "../assets/sidebar-icon/camera.png";
 // import { createSlug } from "../ultils/helpers";
 import { useSelector } from "react-redux";
 
 const Sidebar = () => {
     const { categories } = useSelector((state) => state.app);
-    console.log(categories);
 
     return (
         <div className="">
@@ -19,17 +17,17 @@ const Sidebar = () => {
             </div>
             <ul className="border-[1px] border-[#e4e6eb]">
                 {categories?.map((item) => (
-                    <li className="" key={item._id}>
+                    <li className="" key={item?._id}>
                         <NavLink
                             href="/"
                             className="flex items-start text-[15px] px-[20px] py-[14px] hover:text-main"
                         >
                             <img
-                                src={sidebarIcon}
+                                src={item?.image}
                                 alt=""
                                 className="w-[20px] h-[20px] object-cover mr-[10px]"
                             />
-                            {item.title} (8)
+                            {item?.title} (8)
                         </NavLink>
                     </li>
                 ))}
