@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { renderRatings, formatMoney } from "../ultils/helpers";
 import icons from "../ultils/icons";
 import { apiGetProducts } from "../apis/";
+import FeaturedGallery from "./FeaturedGallery";
 
 const FeaturedProducts = () => {
     const [products, setProducts] = useState(null);
@@ -64,6 +65,7 @@ const FeaturedProducts = () => {
                     </div>
                 ))}
             </div>
+            <FeaturedGallery />
         </div>
     );
 };
