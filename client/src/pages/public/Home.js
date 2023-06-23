@@ -5,6 +5,7 @@ import {
     Sellers,
     DealDaily,
     FeaturedProducts,
+    NewArrivals,
 } from "../../components/";
 const Home = () => {
     return (
@@ -21,6 +22,7 @@ const Home = () => {
             </div>
             <div className="w-main m-auto">
                 <FeaturedProducts />
+                <NewArrivals />
             </div>
         </React.Fragment>
     );

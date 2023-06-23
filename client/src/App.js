@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import paths from "./ultils/paths";
-import { Login, Home, Public ,Contact} from "./pages/public/";
-import { getCategories } from "./store/asyncAction";
-import { useDispatch } from "react-redux"; 
+import { Login, Home, Public } from "./pages/public/";
+import { getCategories } from "./store/app/asyncAction";
+import { useDispatch } from "react-redux";
 
 function App() {
     const dispatch = useDispatch();
