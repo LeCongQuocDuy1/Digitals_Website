@@ -4,6 +4,8 @@ import { renderRatings, formatMoney, secondsToHms } from "../ultils/helpers";
 import moment from "moment";
 import icons from "../ultils/icons";
 import CountDown from "./CountDown";
+import { Link } from "react-router-dom";
+import paths from "../ultils/paths";
 
 const DealDaily = () => {
     const [dealDaily, setDealDaily] = useState(null);
@@ -72,20 +74,23 @@ const DealDaily = () => {
                     DAILY DEALS
                 </div>
             </div>
-            <a href="/" className="block w-full mb-[30px] outline-none">
+            <Link
+                to={`/${paths.DETAIL_PRODUCT}/${dealDaily?._id}/${dealDaily?.title}`}
+                className="block w-full mb-[30px] outline-none"
+            >
                 <img
                     src={dealDaily?.thumb}
                     alt=""
                     className="w-full h-full object-cover outline-none"
                 />
-            </a>
+            </Link>
             <div className="text-center">
-                <a
-                    href="/"
+                <Link
+                    to={`/${paths.DETAIL_PRODUCT}/${dealDaily?._id}/${dealDaily?.title}`}
                     className="block text-[18px] text-[#000] mb-[10px] hover:text-main one-line"
                 >
                     {dealDaily?.title}
-                </a>
+                </Link>
                 <div className="flex items-center justify-center mb-[6px]">
                     {renderRatings(dealDaily?.totalRatings) || (
                         <React.Fragment>

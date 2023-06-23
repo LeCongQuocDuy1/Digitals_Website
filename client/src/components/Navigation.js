@@ -1,6 +1,6 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import icons from "../ultils/icons";
+// import icons from "../ultils/icons";
 import { navigation } from "../ultils/navigation";
 
 const Navigation = () => {
@@ -18,64 +18,10 @@ const Navigation = () => {
                             }
                         >
                             {item.value}
-                            <icons.AiFillCaretDown className="ml-[5px] text-[10px]" />
+                            {/* <icons.AiFillCaretDown className="ml-[5px] text-[10px]" /> */}
                         </NavLink>
                     </li>
                 ))}
-
-                {/* <li className="mr-[30px]">
-                    <a
-                        href="/"
-                        className="hover:text-main flex items-center text-[14px] text-[#000] uppercase leading-[50px]"
-                    >
-                        Home
-                        <icons.AiFillCaretDown className="ml-[5px] text-[10px]" />
-                    </a>
-                </li>
-                <li className="mr-[30px]">
-                    <a
-                        href="/"
-                        className="hover:text-main flex items-center text-[14px] text-[#000] uppercase leading-[50px]"
-                    >
-                        Mega menu
-                        <icons.AiFillCaretDown className="ml-[5px] text-[10px]" />
-                    </a>
-                </li>
-                <li className="mr-[30px]">
-                    <a
-                        href="/"
-                        className="hover:text-main flex items-center text-[14px] text-[#000] uppercase leading-[50px]"
-                    >
-                        Collection layout
-                        <icons.AiFillCaretDown className="ml-[5px] text-[10px]" />
-                    </a>
-                </li>
-                <li className="mr-[30px]">
-                    <a
-                        href="/"
-                        className="hover:text-main flex items-center text-[14px] text-[#000] uppercase leading-[50px]"
-                    >
-                        Pages
-                        <icons.AiFillCaretDown className="ml-[5px] text-[10px]" />
-                    </a>
-                </li>
-                <li className="mr-[30px]">
-                    <a
-                        href="/"
-                        className="hover:text-main flex items-center text-[14px] text-[#000] uppercase leading-[50px]"
-                    >
-                        Blog
-                        <icons.AiFillCaretDown className="ml-[5px] text-[10px]" />
-                    </a>
-                </li>
-                <li className="">
-                    <a
-                        href="/"
-                        className="hover:text-main flex items-center text-[14px] text-[#000] uppercase leading-[50px]"
-                    >
-                        Contact us
-                    </a>
-                </li> */}
             </ul>
             <form action="" className="w-[240px]">
                 <input
