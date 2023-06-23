@@ -18,6 +18,7 @@ function App() {
                 <Route path={paths.PUBLIC} element={<Public />}>
                     <Route path={paths.HOME} element={<Home />} />
                     <Route path={paths.LOGIN} element={<Login />} />
+                    <Route path={paths.CONTACT_US} element={<Contact />} />
                 </Route>
             </Routes>
         </div>
