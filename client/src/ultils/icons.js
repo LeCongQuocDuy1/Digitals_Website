@@ -20,6 +20,9 @@ import { ImLinkedin2 } from "react-icons/im";
 import { FaCcMastercard } from "react-icons/fa";
 import { FaCcPaypal } from "react-icons/fa";
 import { MdPayments, MdNavigateNext } from "react-icons/md";
+import { MdOutlineNavigateNext } from "react-icons/md";
+import { BiMapPin } from "react-icons/bi";
+import { BsCheck } from "react-icons/bs";
 import {
     SiWebmoney,
     SiDiscover,
@@ -60,6 +63,9 @@ const icons = {
     HiOutlineViewList,
     BsFillSuitHeartFill,
     MdNavigateNext,
+    MdOutlineNavigateNext,
+    BiMapPin,
+    BsCheck,
 };
 
 export default icons;
