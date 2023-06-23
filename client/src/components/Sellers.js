@@ -71,7 +71,7 @@ const Sellers = () => {
                     </li>
                 ))}
             </ul>
-            <div className="my-[20px]">
+            <div className="my-[20px] overflow-x-hidden">
                 <Slider {...settings}>
                     {products?.map((item, index) => (
                         <Product

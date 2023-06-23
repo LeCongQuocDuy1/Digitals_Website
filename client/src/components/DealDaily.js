@@ -65,7 +65,7 @@ const DealDaily = () => {
     }, [second, minute, hour, expireTime]);
 
     return (
-        <div className="relative mt-[30px] border-bd-main bg-[#fff] pt-[85px] px-[20px] pb-[20px]">
+        <div className="relative mt-[30px] border-bd-main bg-[#fff] pt-[85px] px-[20px] pb-[27px]">
             <div className="absolute top-[15px] left-[20px] gap-[50px] flex items-center">
                 <icons.AiFillStar className="text-[24px] text-main" />
                 <div className="uppercase text-[#000] text-[20px] font-[600]">

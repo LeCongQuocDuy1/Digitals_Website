@@ -24,7 +24,7 @@ const getProductCategory = asyncHandler(async (req, res) => {
 });
 
 const getProductCategories = asyncHandler(async (req, res) => {
-    const response = await ProductCategory.find().select("title _id image");
+    const response = await ProductCategory.find();
     return res.status(200).json({
         success: response ? true : false,
         productCategories: response

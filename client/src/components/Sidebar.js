@@ -1,7 +1,6 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import icons from "../ultils/icons";
-// import { createSlug } from "../ultils/helpers";
 import { useSelector } from "react-redux";
 
 const Sidebar = () => {
@@ -23,7 +22,7 @@ const Sidebar = () => {
                             className="flex items-start text-[15px] px-[20px] py-[14px] hover:text-main"
                         >
                             <img
-                                src={item?.image}
+                                src={item?.icon}
                                 alt=""
                                 className="w-[20px] h-[20px] object-cover mr-[10px]"
                             />
