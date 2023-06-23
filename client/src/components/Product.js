@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { renderRatings } from "../ultils/helpers";
+import { renderRatings, formatMoney } from "../ultils/helpers";
 import SelectOptions from "./SelectOptions";
 import icons from "../ultils/icons";
 
@@ -67,7 +67,7 @@ const Product = ({ product, isNew, pid }) => {
                     )}
                 </div>
                 <div className="text-[16px] text-[#000]">
-                    {product?.price} VND
+                    {`${formatMoney(product?.price)} VND`}
                 </div>
             </div>
             {isShowOptions && (

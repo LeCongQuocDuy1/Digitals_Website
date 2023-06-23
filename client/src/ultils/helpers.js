@@ -11,6 +11,9 @@ export const createSlug = (string) => {
         .join("-");
 };
 
+export const formatMoney = (number) =>
+    Number(number?.toFixed(1)).toLocaleString();
+
 export const renderRatings = (number) => {
     // 4 => [fill, fill, fill, fill, out]
     // 2 => [fill, fill, out, out, out]
@@ -20,7 +23,7 @@ export const renderRatings = (number) => {
         stars.push(
             <AiFillStar
                 key={i}
-                className="text-[14px] text-yellow-500 mb-[3px]"
+                className="text-[15px] text-yellow-500 mb-[3px]"
             />
         );
     }
@@ -28,9 +31,18 @@ export const renderRatings = (number) => {
         stars.push(
             <AiOutlineStar
                 key={i}
-                className="text-[14px] text-yellow-500 mb-[3px]"
+                className="text-[15px] text-yellow-500 mb-[3px]"
             />
         );
     }
     return stars;
+};
+
+export const secondsToHms = (d) => {
+    d = Number(d) / 1000;
+    const h = Math.floor(d / 3600);
+    const m = Math.floor((d % 3600) / 60);
+    const s = Math.floor((d % 3600) % 60);
+
+    return { h, m, s };
 };
