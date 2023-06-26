@@ -8,3 +8,4 @@ export { default as DealDaily } from "./DealDaily";
 export { default as FeaturedProducts } from "./FeaturedProducts";
 export { default as NewArrivals } from "./NewArrivals";
 export { default as HotCollections } from "./HotCollections";
+export { default as BreadCrumb } from "./BreadCrumb";

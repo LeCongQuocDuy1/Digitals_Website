@@ -3,6 +3,8 @@ import { renderRatings, formatMoney } from "../ultils/helpers";
 import icons from "../ultils/icons";
 import { apiGetProducts } from "../apis";
 import FeaturedGallery from "./FeaturedGallery";
+import { Link } from "react-router-dom";
+import paths from "../ultils/paths";
 
 const FeaturedProducts = () => {
     const [products, setProducts] = useState(null);
@@ -40,12 +42,12 @@ const FeaturedProducts = () => {
                             className="w-[100px] h-[100px] mr-[20px] object-cover outline-none"
                         />
                         <div className="">
-                            <a
-                                href="/"
+                            <Link
+                                to={`/${paths.DETAIL_PRODUCT}/${product?._id}/${product?.title}`}
                                 className="block text-[16px] text-[#000] mb-[10px] hover:text-main one-line"
                             >
                                 {product?.title}
-                            </a>
+                            </Link>
                             <div className="flex items-center mb-[6px]">
                                 {renderRatings(product?.totalRatings) || (
                                     <React.Fragment>

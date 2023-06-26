@@ -2,6 +2,8 @@ import React from "react";
 import logo from "../assets/logo.png";
 import icons from "../ultils/icons";
 import Navigation from "./Navigation";
+import { Link } from "react-router-dom";
+import paths from "../ultils/paths";
 
 const Header = () => {
     return (
@@ -48,9 +50,9 @@ const Header = () => {
                 </div>
             </div>
             <div className="w-main flex m-auto items-center justify-between py-[35px]">
-                <a href="/" className="">
+                <Link to={paths.HOME} className="">
                     <img src={logo} alt="" className="" />
-                </a>
+                </Link>
                 <ul className="flex items-center">
                     <li className="ml-[20px] pr-[20px] border-r-[1px] border-[#e4e6eb]">
                         <div className="flex items-center text-[13px] font-[600]">

@@ -13,8 +13,8 @@ export const navigation = [
     },
     {
         id: 3,
-        value: "BLOG",
-        path: `/${paths.BLOG}`,
+        value: "BLOGS",
+        path: `/${paths.BLOGS}`,
     },
     {
         id: 4,

@@ -2,8 +2,10 @@ import React, { useState } from "react";
 import { renderRatings, formatMoney } from "../ultils/helpers";
 import SelectOptions from "./SelectOptions";
 import icons from "../ultils/icons";
+import { Link } from "react-router-dom";
+import paths from "../ultils/paths";
 
-const Product = ({ product, isNew, pid }) => {
+const Product = ({ product, isNew }) => {
     const [isShowOptions, setIsShowOptions] = useState(false);
 
     return (
@@ -18,8 +20,8 @@ const Product = ({ product, isNew, pid }) => {
             }}
             className="relative border-bd-main bg-[rgb(255,255,255)] py-[20px] px-[15px]"
         >
-            <a
-                href="/"
+            <Link
+                to={`/${paths.DETAIL_PRODUCT}/${product?._id}/${product?.title}`}
                 className="block w-full mb-[20px] outline-none relative"
             >
                 <img
@@ -46,14 +48,14 @@ const Product = ({ product, isNew, pid }) => {
                 >
                     {isNew ? `NEW` : `TRENDING`}
                 </div>
-            </a>
+            </Link>
             <div className="text-left">
-                <a
-                    href="/"
+                <Link
+                    to={`/${paths.DETAIL_PRODUCT}/${product?._id}/${product?.title}`}
                     className="block text-[16px] text-[#000] mb-[10px] hover:text-main one-line"
                 >
                     {product?.title}
-                </a>
+                </Link>
                 <div className="flex items-center mb-[6px]">
                     {renderRatings(product?.totalRatings) || (
                         <React.Fragment>
