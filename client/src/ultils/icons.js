@@ -15,7 +15,7 @@ import { HiMail, HiOutlineViewList } from "react-icons/hi";
 import { FiHeart } from "react-icons/fi";
 import { BsFillHandbagFill, BsFillSuitHeartFill } from "react-icons/bs";
 import { AiFillCaretDown, AiFillStar, AiOutlineStar } from "react-icons/ai";
-import { MdPlace } from "react-icons/md";
+import { MdPlace, MdLogout } from "react-icons/md";
 import { ImLinkedin2 } from "react-icons/im";
 import { FaCcMastercard } from "react-icons/fa";
 import { FaCcPaypal } from "react-icons/fa";
@@ -66,6 +66,7 @@ const icons = {
     MdOutlineNavigateNext,
     BiMapPin,
     BsCheck,
+    MdLogout,
 };
 
 export default icons;

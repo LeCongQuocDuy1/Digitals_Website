@@ -12,6 +12,8 @@ import {
     Service,
     FAQ,
     DetailProduct,
+    FinalRegister,
+    ResetPassword,
 } from "./pages/public/";
 import { getCategories } from "./store/app/asyncAction";
 import { useDispatch } from "react-redux";
@@ -28,7 +30,6 @@ function App() {
             <Routes>
                 <Route path={paths.PUBLIC} element={<Public />}>
                     <Route path={paths.HOME} element={<Home />} />
-                    <Route path={paths.LOGIN} element={<Login />} />
                     <Route path={paths.CONTACT_US} element={<Contact />} />
                     <Route path={paths.PRODUCTS} element={<Products />} />
                     <Route path={paths.BLOGS} element={<Blogs />} />
@@ -40,7 +41,16 @@ function App() {
                         path={paths.DETAIL_PRODUCT__PID__TITLE}
                         element={<DetailProduct />}
                     />
+                    <Route
+                        path={paths.RESET_PASSWORD}
+                        element={<ResetPassword />}
+                    />
                 </Route>
+                <Route
+                    path={paths.FINAL_REGISTER}
+                    element={<FinalRegister />}
+                />
+                <Route path={paths.LOGIN} element={<Login />} />
             </Routes>
         </div>
     );

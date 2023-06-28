@@ -8,7 +8,12 @@ import {
     NewArrivals,
     HotCollections,
 } from "../../components/";
+// import { useSelector } from "react-redux";
 const Home = () => {
+    // const { newProducts } = useSelector((state) => state.product);
+    // const { categories } = useSelector((state) => state.app);
+    // const { isLoggedIn, current } = useSelector((state) => state.user);
+
     return (
         <React.Fragment>
             <div className="w-main flex gap-[24px] items-start mt-[20px] mx-auto">
