@@ -7,11 +7,11 @@ const {
     generateAccessToken,
     generateRefreshToken,
 } = require("../middlewares/jwt");
+const uniqid = require("uniqid");
 
 const register = asyncHandler(async (req, res, next) => {
-    const { email, password, firstname, lastname } = req.body;
-
-    if (!email || !password || !firstname || !lastname)
+    const { email, password, firstname, lastname, mobile } = req.body;
+    if (!email || !password || !firstname || !lastname || !mobile)
         return res.status(400).json({
             success: false,
             message: "Missing inputs",
@@ -21,14 +21,86 @@ const register = asyncHandler(async (req, res, next) => {
     if (user) {
         throw new Error("User is already existed!");
     } else {
-        const response = await User.create(req.body);
-        return res.status(200).json({
-            success: response ? true : false,
-            message: response
-                ? "Register is successfully! You can login now"
-                : "Something went wrong!",
+        const token = uniqid();
+        const emailedited = btoa(email) + "@" + token;
+        const newUser = await User.create({
+            email: emailedited,
+            password,
+            firstname,
+            lastname,
+            mobile,
+        });
+
+        // res.cookie(
+        //     "dataregister",
+        //     { ...req.body, token },
+        //     {
+        //         httpOnly: true,
+        //         maxAge: 15 * 60 * 1000,
+        //     }
+        // );
+
+        // const html = `Please click on the link below to complete the account registration process. This link will expire 15 minutes from now. <br> <a href=${process.env.URL_SERVER}/api/v1/user/finalregister/${token}>Click here</a>`;
+
+        if (newUser) {
+            const html = `<h2>Register code:</h2><br /><blockquote>${token}</blockquote>`;
+            await sendMail({
+                email,
+                html,
+                subject:
+                    "Confirm Account Registration Process of Digitals Website",
+            });
+        }
+
+        setTimeout(async () => {
+            await User.deleteOne({ email: emailedited });
+        }, 300000);
+
+        return res.json({
+            success: true,
+            message: newUser
+                ? "Please check your email to activate your account"
+                : "Something went wrong, please try again",
         });
     }
+});
+
+const finalRegister = asyncHandler(async (req, res) => {
+    // const cookie = req.cookies;
+    const { token } = req.params;
+
+    const notActivedEmail = await User.findOne({
+        email: new RegExp(`${token}$`),
+    });
+    if (notActivedEmail) {
+        notActivedEmail.email = atob(notActivedEmail?.email?.split("@")[0]);
+        notActivedEmail.save();
+    }
+    return res.json({
+        success: notActivedEmail ? true : false,
+        message: notActivedEmail
+            ? "Register is successfully. You can go login."
+            : "Something went wrong, please try again",
+    });
+
+    // if (!cookie || cookie?.dataregister?.token !== token) {
+    //     res.clearCookie("dataregister");
+    //     return res.redirect(`${process.env.URL_CLIENT}/finalregister/failed`);
+    // }
+
+    // const newUser = await User.create({
+    //     email: cookie?.dataregister?.email,
+    //     password: cookie?.dataregister?.password,
+    //     mobile: cookie?.dataregister?.mobile,
+    //     firstname: cookie?.dataregister?.firstname,
+    //     lastname: cookie?.dataregister?.lastname,
+    // });
+    // res.clearCookie("dataregister");
+    // if (newUser)
+    //     return res.redirect(
+    //         `${process.env.URL_CLIENT}/finalregister/successed`
+    //     );
+    // else return res.redirect(`${process.env.URL_CLIENT}/finalregister/failed`);
 });
 
 // Access Token => Xác thực và phân quyền người dùng
@@ -70,6 +142,9 @@ const login = asyncHandler(async (req, res, next) => {
 
         return res.status(200).json({
             success: true,
+            message: response
+                ? "Login is successfully! Welcome to website"
+                : "Email and password are not correct! Please try again!",
             accessToken,
             userData,
         });
@@ -86,7 +161,7 @@ const getUser = asyncHandler(async (req, res) => {
         "-refreshToken -password -role -passwordChangeAt"
     );
     return res.status(200).json({
-        success: response ? true : false,
+        success: user ? true : false,
         response: user ? user : "User not found",
     });
 });
@@ -195,24 +270,27 @@ const logout = asyncHandler(async (req, res) => {
 // Server dựa vào api đó, check token đó có trùng khớp với token đã gửi trong mail hay không
 // Server thay đổi mật khẩu
 const forgotPassword = asyncHandler(async (req, res) => {
-    const { email } = req.query;
+    const { email } = req.body;
     if (!email) throw new Error("Missing email!");
     const user = await User.findOne({ email });
     if (!user) throw new Error("User not found!");
     const resetToken = user.createPasswordChangedToken();
     await user.save();
 
-    const html = `Please click the link below to change your password. It link will expired after 15 minutes right now. <br> <a href=${process.env.URL_SERVER}/api/user/reset-password/${resetToken}>Click here</a>`;
+    const html = `Please click the link below to change your password. It link will expired after 15 minutes right now. <br> <a href=${process.env.URL_CLIENT}/reset-password/${resetToken}>Click here</a>`;
 
     const data = {
         email,
         html,
+        subject: "Forgot Password",
     };
 
     const rs = await sendMail(data);
     return res.status(200).json({
-        success: true,
-        rs,
+        success: rs.response?.includes("OK") ? true : false,
+        message: rs.response?.includes("OK")
+            ? "Please check your email to reset password your account"
+            : "Something went wrong! Try again later",
     });
 });
 
@@ -314,4 +392,5 @@ module.exports = {
     updateUserByAdmin,
     updateAddressUser,
     updateCart,
+    finalRegister,
 };

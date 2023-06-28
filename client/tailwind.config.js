@@ -8,12 +8,16 @@ module.exports = {
             },
             backgroundColor: {
                 main: "#f9ba48",
+                error: "#d02e2e",
+                overplay: "rgba(0, 0, 0, 0.3)",
             },
             colors: {
                 main: "#f9ba48",
+                error: "#d02e2e",
             },
             borderColor: {
                 "bd-main": "#ebebeb",
+                error: "#d02e2e",
             },
             borderWidth: {
                 "bd-main": "1px",
