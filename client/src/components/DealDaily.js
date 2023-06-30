@@ -75,7 +75,9 @@ const DealDaily = () => {
                 </div>
             </div>
             <Link
-                to={`/${paths.DETAIL_PRODUCT}/${dealDaily?._id}/${dealDaily?.title}`}
+                to={`/${dealDaily?.category?.toLowerCase()}/${dealDaily?._id}/${
+                    dealDaily?.title
+                }`}
                 className="block w-full mb-[30px] outline-none"
             >
                 <img
@@ -86,7 +88,9 @@ const DealDaily = () => {
             </Link>
             <div className="text-center">
                 <Link
-                    to={`/${paths.DETAIL_PRODUCT}/${dealDaily?._id}/${dealDaily?.title}`}
+                    to={`/${dealDaily?.category?.toLowerCase()}/${
+                        dealDaily?._id
+                    }/${dealDaily?.title}`}
                     className="block text-[18px] text-[#000] mb-[10px] hover:text-main one-line"
                 >
                     {dealDaily?.title}

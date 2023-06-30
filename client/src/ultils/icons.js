@@ -11,18 +11,20 @@ import {
     FaEye,
 } from "react-icons/fa";
 import { BiChevronDown } from "react-icons/bi";
-import { HiMail, HiOutlineViewList } from "react-icons/hi";
+import { HiMail, HiOutlineViewList, HiGift } from "react-icons/hi";
 import { FiHeart } from "react-icons/fi";
 import { BsFillHandbagFill, BsFillSuitHeartFill } from "react-icons/bs";
 import { AiFillCaretDown, AiFillStar, AiOutlineStar } from "react-icons/ai";
-import { MdPlace, MdLogout } from "react-icons/md";
+import { MdPlace, MdLogout, MdLocalShipping } from "react-icons/md";
 import { ImLinkedin2 } from "react-icons/im";
-import { FaCcMastercard } from "react-icons/fa";
+import { FaCcMastercard, FaShieldAlt, FaShare } from "react-icons/fa";
 import { FaCcPaypal } from "react-icons/fa";
 import { MdPayments, MdNavigateNext } from "react-icons/md";
 import { MdOutlineNavigateNext } from "react-icons/md";
 import { BiMapPin } from "react-icons/bi";
 import { BsCheck } from "react-icons/bs";
+import { ImPhoneHangUp } from "react-icons/im";
+
 import {
     SiWebmoney,
     SiDiscover,
@@ -67,6 +69,11 @@ const icons = {
     BiMapPin,
     BsCheck,
     MdLogout,
+    MdLocalShipping,
+    FaShieldAlt,
+    FaShare,
+    HiGift,
+    ImPhoneHangUp,
 };
 
 export default icons;

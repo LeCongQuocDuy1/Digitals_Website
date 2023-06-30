@@ -9,7 +9,7 @@ const paths = {
     OUR_SERVICES: "services",
     FAQS: "faqs",
     CONTACT_US: "contact",
-    DETAIL_PRODUCT__PID__TITLE: "product/:pid/:title",
+    DETAIL_PRODUCT__CATEGORY__PID__TITLE: ":category/:pid/:title",
     DETAIL_PRODUCT: "product",
     FINAL_REGISTER: "finalregister/:status",
     RESET_PASSWORD: "reset-password/:token",

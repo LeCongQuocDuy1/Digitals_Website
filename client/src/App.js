@@ -38,7 +38,7 @@ function App() {
                     <Route path={paths.FAQS} element={<FAQ />} />
 
                     <Route
-                        path={paths.DETAIL_PRODUCT__PID__TITLE}
+                        path={paths.DETAIL_PRODUCT__CATEGORY__PID__TITLE}
                         element={<DetailProduct />}
                     />
                     <Route

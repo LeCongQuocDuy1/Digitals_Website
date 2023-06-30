@@ -4,7 +4,6 @@ import icons from "../ultils/icons";
 import { apiGetProducts } from "../apis";
 import FeaturedGallery from "./FeaturedGallery";
 import { Link } from "react-router-dom";
-import paths from "../ultils/paths";
 
 const FeaturedProducts = () => {
     const [products, setProducts] = useState(null);
@@ -43,7 +42,9 @@ const FeaturedProducts = () => {
                         />
                         <div className="">
                             <Link
-                                to={`/${paths.DETAIL_PRODUCT}/${product?._id}/${product?.title}`}
+                                to={`/${product?.category?.toLowerCase()}/${
+                                    product?._id
+                                }/${product?.title}`}
                                 className="block text-[16px] text-[#000] mb-[10px] hover:text-main one-line"
                             >
                                 {product?.title}
