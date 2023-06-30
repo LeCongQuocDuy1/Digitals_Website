@@ -21,12 +21,14 @@ const Product = ({ product, isNew }) => {
             className="relative border-bd-main bg-[rgb(255,255,255)] py-[20px] px-[15px]"
         >
             <Link
-                to={`/${paths.DETAIL_PRODUCT}/${product?._id}/${product?.title}`}
+                to={`/${product?.category?.toLowerCase()}/${product?._id}/${
+                    product?.title
+                }`}
                 className="block w-full mb-[20px] outline-none relative"
             >
                 <img
                     src={product?.thumb}
-                    alt=""
+                    alt="ok"
                     className="w-full h-full object-cover outline-none"
                 />
 
@@ -51,7 +53,9 @@ const Product = ({ product, isNew }) => {
             </Link>
             <div className="text-left">
                 <Link
-                    to={`/${paths.DETAIL_PRODUCT}/${product?._id}/${product?.title}`}
+                    to={`/${product?.category?.toLowerCase()}/${product?._id}/${
+                        product?.title
+                    }`}
                     className="block text-[16px] text-[#000] mb-[10px] hover:text-main one-line"
                 >
                     {product?.title}
