@@ -14,3 +14,5 @@ export { default as Button } from "./Button";
 export { default as ProductExtrainfo } from "./ProductExtrainfo";
 export { default as SelectQuantity } from "./SelectQuantity";
 export { default as ProductInformation } from "./ProductInformation";
+export { default as Product } from "./Product";
+export { default as FilterItem } from "./FilterItem";

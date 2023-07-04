@@ -5,7 +5,6 @@ import { useSelector } from "react-redux";
 
 const Sidebar = () => {
     const { categories } = useSelector((state) => state.app);
-
     return (
         <div className="">
             <div className="bg-main flex items-center px-[20px] py-[10px]">
@@ -18,7 +17,7 @@ const Sidebar = () => {
                 {categories?.map((item) => (
                     <li className="" key={item?._id}>
                         <NavLink
-                            href="/"
+                            to={`/${item?.title.toLowerCase()}`}
                             className="flex items-start text-[15px] px-[20px] py-[14px] hover:text-main"
                         >
                             <img

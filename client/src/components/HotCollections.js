@@ -5,7 +5,6 @@ import { Link } from "react-router-dom";
 
 const HotCollections = () => {
     const { categories } = useSelector((state) => state.app);
-    console.log(categories);
     return (
         <div className="w-main mb-[30px]">
             <div className="border-b-[3px] border-main w-full pb-[15px]">
