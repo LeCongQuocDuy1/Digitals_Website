@@ -3,7 +3,6 @@ import { renderRatings, formatMoney } from "../ultils/helpers";
 import SelectOptions from "./SelectOptions";
 import icons from "../ultils/icons";
 import { Link } from "react-router-dom";
-import paths from "../ultils/paths";
 
 const Product = ({ product, isNew }) => {
     const [isShowOptions, setIsShowOptions] = useState(false);

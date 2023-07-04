@@ -12,7 +12,7 @@ import {
 } from "react-icons/fa";
 import { BiChevronDown } from "react-icons/bi";
 import { HiMail, HiOutlineViewList, HiGift } from "react-icons/hi";
-import { FiHeart } from "react-icons/fi";
+import { FiHeart, FiChevronDown } from "react-icons/fi";
 import { BsFillHandbagFill, BsFillSuitHeartFill } from "react-icons/bs";
 import { AiFillCaretDown, AiFillStar, AiOutlineStar } from "react-icons/ai";
 import { MdPlace, MdLogout, MdLocalShipping } from "react-icons/md";
@@ -74,6 +74,7 @@ const icons = {
     FaShare,
     HiGift,
     ImPhoneHangUp,
+    FiChevronDown,
 };
 
 export default icons;

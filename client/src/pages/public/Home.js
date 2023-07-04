@@ -1,3 +1,4 @@
+// import React, { useState, useEffect } from "react";
 import React from "react";
 import {
     Sidebar,
@@ -8,11 +9,24 @@ import {
     NewArrivals,
     HotCollections,
 } from "../../components/";
+// import { apiGetProducts } from "../../apis/";
 // import { useSelector } from "react-redux";
+
 const Home = () => {
     // const { newProducts } = useSelector((state) => state.product);
     // const { categories } = useSelector((state) => state.app);
     // const { isLoggedIn, current } = useSelector((state) => state.user);
+    // const [products, setProducts] = useState(null);
+
+    // useEffect(() => {
+    //     async function fetchProducts() {
+    //         const response = await apiGetProducts();
+    //         if (response.success) {
+    //             setProducts(response.products);
+    //         }
+    //     }
+    //     fetchProducts();
+    // }, []);
 
     return (
         <React.Fragment>

@@ -5,7 +5,6 @@ import moment from "moment";
 import icons from "../ultils/icons";
 import CountDown from "./CountDown";
 import { Link } from "react-router-dom";
-import paths from "../ultils/paths";
 
 const DealDaily = () => {
     const [dealDaily, setDealDaily] = useState(null);

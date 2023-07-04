@@ -43,5 +43,5 @@ module.exports = {
             main: ["Poppins", "sans-serif;"],
         },
     },
-    plugins: [],
+    plugins: [require("@tailwindcss/forms")],
 };
