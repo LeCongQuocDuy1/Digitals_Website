@@ -19,7 +19,13 @@ const Header = () => {
     };
 
     useEffect(() => {
-        if (isLoggedIn) dispatch(getCurrent());
+        const setTimeoutId = setTimeout(() => {
+            if (isLoggedIn) dispatch(getCurrent());
+        }, 300);
+
+        return () => {
+            clearTimeout(setTimeoutId);
+        };
     }, [dispatch, isLoggedIn]);
 
     return (

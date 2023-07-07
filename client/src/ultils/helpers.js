@@ -19,6 +19,7 @@ export const renderRatings = (number) => {
     // 2 => [fill, fill, out, out, out]
     if (!Number(number)) return;
     const stars = [];
+
     for (let i = 0; i < +number; i++) {
         stars.push(
             <AiFillStar

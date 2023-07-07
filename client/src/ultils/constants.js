@@ -52,19 +52,6 @@ export const productInfos = [
         Customers are able to pick the next available delivery day that best fits their schedule. However, to route stops as efficiently as possible, Shopify Shop will provide the time frame. Customers will not be able to choose a time. You will be notified in advance of your scheduled time frame. Please make sure that a responsible adult (18 years or older) will be home at that time.
         In preparation for your delivery, please remove existing furniture, pictures, mirrors, accessories, etc. to prevent damages. Also insure that the area where you would like your furniture placed is clear of any old furniture and any other items that may obstruct the passageway of the delivery team. Shopify Shop will deliver, assemble, and set-up your new furniture purchase and remove all packing materials from your home. Our delivery crews are not permitted to move your existing furniture or other household items. Delivery personnel will attempt to deliver the purchased items in a safe and controlled manner but will not attempt to place furniture if they feel it will result in damage to the product or your home. Delivery personnel are unable to remove doors, hoist furniture or carry furniture up more than 3 flights of stairs. An elevator must be available for deliveries to the 4th floor and above.`,
     },
-
-    {
-        id: 5,
-        name: "CUSTOMER REVIEW",
-        content: `CUSTOMER REVIEWS
-        Based on 1 review
-        Write a review
-        Good device
-        Tadatheme on May 20, 2017
-        You could engage with augmented reality with a headset, and see 3D objects "projected" into your real world -- something that's usually called "mixed reality." Augmented reality doesn't need a headset, though. It can use your phone. In fact, it already does. 2016's summer smash hit Pokemon Go was the most widespread use of AR ever seen.
-        
-        Report as Inappropriate`,
-    },
 ];
 
 export const colors = [
@@ -116,5 +103,28 @@ export const sorts = [
         id: 7,
         value: "-createdAt",
         text: "Date, new to old",
+    },
+];
+
+export const voteOptions = [
+    {
+        id: 1,
+        text: "Terrible",
+    },
+    {
+        id: 2,
+        text: "Bad",
+    },
+    {
+        id: 3,
+        text: "Normal",
+    },
+    {
+        id: 4,
+        text: "Good",
+    },
+    {
+        id: 5,
+        text: "Perfect",
     },
 ];

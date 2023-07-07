@@ -13,7 +13,7 @@ const Navigation = () => {
                             to={item.path}
                             className={({ isActive }) =>
                                 isActive
-                                    ? "text-main hover:text-main flex items-center text-[14px] text-[#000] uppercase leading-[50px]"
+                                    ? "hover:text-main flex items-center text-[14px] text-main uppercase leading-[50px]"
                                     : " hover:text-main flex items-center text-[14px] text-[#000] uppercase leading-[50px]"
                             }
                         >
