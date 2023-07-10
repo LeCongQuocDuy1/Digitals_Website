@@ -16,17 +16,20 @@ import {
     ResetPassword,
 } from "./pages/public/";
 import { getCategories } from "./store/app/asyncAction";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { Modal } from "./components";
 
 function App() {
     const dispatch = useDispatch();
+    const { isShowModal, modalChildren } = useSelector((state) => state.app);
 
     useEffect(() => {
         dispatch(getCategories());
     }, [dispatch]);
 
     return (
-        <div className="font-main">
+        <div className="font-main relative">
+            {isShowModal && <Modal>{modalChildren}</Modal>}
             <Routes>
                 <Route path={paths.PUBLIC} element={<Public />}>
                     <Route path={paths.HOME} element={<Home />} />

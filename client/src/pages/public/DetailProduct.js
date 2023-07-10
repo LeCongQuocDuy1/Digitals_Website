@@ -26,29 +26,40 @@ const settings = {
 
 const DetailProduct = () => {
     const { pid, category } = useParams();
+    const [currentThumb, setCurrentThumb] = useState(null);
     const [product, setProduct] = useState(null);
     const [products, setProducts] = useState(null);
     const [quantity, setQuantity] = useState(1);
+    const [update, setUpdate] = useState(false);
+
+    const fetchProducts = async () => {
+        const response = await apiGetProducts({ category });
+        if (response.success) {
+            setProducts(response.products);
+        }
+    };
+
+    const fetchProduct = async () => {
+        const response = await apiGetProduct(pid);
+        if (response.success) {
+            setProduct(response.product);
+            setCurrentThumb(response?.product?.thumb);
+        }
+    };
 
     useEffect(() => {
-        async function fetchProducts() {
-            const response = await apiGetProducts({ category });
-            if (response.success) {
-                setProducts(response.products);
-            }
-        }
+        fetchProduct(pid);
         fetchProducts();
-    }, [category]);
+        window.scrollTo(0, 0);
+    }, [category, pid]);
 
     useEffect(() => {
-        async function fetchProduct() {
-            const response = await apiGetProduct(pid);
-            if (response.success) {
-                setProduct(response.product);
-            }
-        }
-        fetchProduct();
-    }, [pid]);
+        if (pid) fetchProduct(pid);
+    }, [update, pid]);
+
+    const rerender = useCallback(() => {
+        setUpdate(!update);
+    }, [update]);
 
     const handleQuantity = useCallback((number) => {
         if (!Number(number) || Number(number) < 1) {
@@ -69,6 +80,12 @@ const DetailProduct = () => {
         },
         [quantity]
     );
+
+    const handleChangeThumb = (e, image) => {
+        e.stopPropagation();
+        setCurrentThumb(image);
+    };
+
     return (
         <React.Fragment>
             <BreadCrumb title={product?.title} category={product?.category} />
@@ -80,17 +97,17 @@ const DetailProduct = () => {
                                 smallImage: {
                                     alt: "Wristwatch by Ted Baker London",
                                     isFluidWidth: true,
-                                    src: product?.thumb,
+                                    src: currentThumb,
                                 },
                                 largeImage: {
-                                    src: product?.thumb,
+                                    src: currentThumb,
                                     width: 1000,
                                     height: 1000,
                                 },
                             }}
-                            className="bg-white z-50"
-                            imageClassName="w-full border-bd-main py-[20px]"
-                            enlargedImageClassName="object-cover w-full"
+                            className="bg-white z-30 w-[440px] h-[564px] object-cover"
+                            imageClassName="w-[440px] h-[564px] object-cover border-bd-main py-[20px]"
+                            enlargedImageClassName="object-cover w-[440px] h-[564px]"
                         />
                         <div className="my-[20px] overflow-x-hidden h-[200px]">
                             <Slider {...settings}>
@@ -98,25 +115,38 @@ const DetailProduct = () => {
                                     <img
                                         key={index}
                                         src={image}
+                                        onClick={(e) =>
+                                            handleChangeThumb(e, image)
+                                        }
                                         alt=""
-                                        className="border-bd-main h-[200px] object-cover"
+                                        className="border-bd-main h-[200px] object-cover cursor-pointer"
                                     />
                                 ))}
                             </Slider>
                         </div>
                     </div>
-                    <div className="grid grid-cols-3">
+                    <div className="grid grid-cols-3 gap-[15px]">
                         <div className="col-span-2">
-                            <div className="text-[30px] font-[600] mb-[20px] text-[#000]">
-                                {`${formatMoney(product?.price)} VND`}
+                            <div className="flex items-center justify-between mb-[20px]">
+                                <div className="text-[30px] font-[600] text-[#000]">
+                                    {`${formatMoney(product?.price)} VND`}
+                                </div>
+                                <span className="text-[14px] text-red-500">
+                                    In stock: {product?.quantity}
+                                </span>
                             </div>
-                            <div className="flex items-center gap-[4px] mb-[20px] text-[14px]">
-                                {renderRatings(product?.totalRatings)?.map(
-                                    (star, index) => (
-                                        <span key={index}>{star}</span>
-                                    )
-                                )}
-                                {product?.totalRatings} review
+                            <div className="flex items-center justify-between mb-[20px]">
+                                <div className="flex items-center gap-[4px] text-[14px]">
+                                    {renderRatings(product?.totalRatings)?.map(
+                                        (star, index) => (
+                                            <span key={index}>{star}</span>
+                                        )
+                                    )}
+                                    {product?.ratings?.length} review
+                                </div>
+                                <span className="text-[14px] text-red-500">
+                                    (Sold: {product?.sold} pieces)
+                                </span>
                             </div>
                             <ul className="mb-[20px]">
                                 {product?.description.map((desc, index) => (
@@ -242,7 +272,12 @@ const DetailProduct = () => {
                     </div>
                 </div>
                 <div className="mt-[50px]">
-                    <ProductInformation products={products} />
+                    <ProductInformation
+                        products={products}
+                        product={product}
+                        pid={pid}
+                        rerender={rerender}
+                    />
                 </div>
             </div>
         </React.Fragment>
