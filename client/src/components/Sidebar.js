@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 
 const Sidebar = () => {
     const { categories } = useSelector((state) => state.app);
+
     return (
         <div className="">
             <div className="bg-main flex items-center px-[20px] py-[10px]">
@@ -25,7 +26,7 @@ const Sidebar = () => {
                                 alt=""
                                 className="w-[20px] h-[20px] object-cover mr-[10px]"
                             />
-                            {item?.title} (8)
+                            {item?.title} (5)
                         </NavLink>
                     </li>
                 ))}

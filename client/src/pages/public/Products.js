@@ -5,7 +5,7 @@ import {
     useSearchParams,
     createSearchParams,
 } from "react-router-dom";
-import { BreadCrumb, Product, FilterItem } from "../../components/";
+import { BreadCrumb, Product, FilterItem, Pagination } from "../../components/";
 import { apiGetProducts } from "../../apis/";
 import { sorts } from "../../ultils/constants";
 
@@ -17,20 +17,24 @@ const Products = () => {
     const [activeFilter, setActiveFilter] = useState(false);
     const [params] = useSearchParams();
 
+    const fetchProductsByCategory = async (queries) => {
+        // const response = await apiGetProducts({ ...queries, category });
+        const response = await apiGetProducts(queries);
+        if (response.success) {
+            setProducts(response);
+        }
+    };
+
     useEffect(() => {
-        const fetchProductsByCategory = async (queries) => {
-            const response = await apiGetProducts({ ...queries, category });
-            if (response.success) {
-                setProducts(response.products);
-            }
-        };
+        fetchProductsByCategory();
+    }, []);
+
+    useEffect(() => {
         let param = [];
         for (let i of params.entries()) param?.push(i);
-        const queries = [];
-        for (let i of params) queries[i[0]] = i[1];
-
+        const queries = {};
         let priceQuery = {};
-
+        for (let i of params) queries[i[0]] = i[1];
         if (queries.from && queries.to) {
             priceQuery = {
                 $and: [
@@ -39,14 +43,14 @@ const Products = () => {
                 ],
             };
             delete queries.price;
-        }
+        } else {
+            if (queries.from) {
+                queries.price = { gte: queries.from };
+            }
 
-        if (queries.from) {
-            queries.price = { gte: queries.from };
-        }
-
-        if (queries.to) {
-            queries.price = { lte: queries.to };
+            if (queries.to) {
+                queries.price = { lte: queries.to };
+            }
         }
 
         delete queries.from;
@@ -55,7 +59,7 @@ const Products = () => {
         const q = { ...priceQuery, ...queries };
 
         fetchProductsByCategory(q);
-    }, [params, category]);
+    }, [params]);
 
     const changeActiveFilter = useCallback(
         (name) => {
@@ -66,12 +70,14 @@ const Products = () => {
     );
 
     useEffect(() => {
-        navigate({
-            pathnames: `/${category}`,
-            search: createSearchParams({
-                sort,
-            }).toString(),
-        });
+        if (sort) {
+            navigate({
+                pathnames: `/${category}`,
+                search: createSearchParams({
+                    sort,
+                }).toString(),
+            });
+        }
     }, [sort, category, navigate]);
 
     return (
@@ -118,7 +124,7 @@ const Products = () => {
                     </div>
                 </div>
                 <div className="w-full grid grid-cols-4 gap-[20px] my-[20px]">
-                    {products?.map((item, index) => (
+                    {products?.products?.map((item, index) => (
                         <Product
                             key={index}
                             product={item}
@@ -127,6 +133,11 @@ const Products = () => {
                         />
                     ))}
                 </div>
+                {products?.products.length > 0 && (
+                    <div className="w-full flex items-center justify-end mt-[50px]">
+                        <Pagination totalCount={products?.counts} />
+                    </div>
+                )}
             </div>
         </div>
     );
