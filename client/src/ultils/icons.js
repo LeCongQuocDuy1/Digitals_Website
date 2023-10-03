@@ -22,7 +22,12 @@ import { BsFillHandbagFill, BsFillSuitHeartFill } from "react-icons/bs";
 import { AiFillCaretDown, AiFillStar, AiOutlineStar } from "react-icons/ai";
 import { MdPlace, MdLogout, MdLocalShipping } from "react-icons/md";
 import { ImLinkedin2 } from "react-icons/im";
-import { FaCcMastercard, FaShieldAlt, FaShare } from "react-icons/fa";
+import {
+    FaCcMastercard,
+    FaShieldAlt,
+    FaShare,
+    FaUserCircle,
+} from "react-icons/fa";
 import { FaCcPaypal } from "react-icons/fa";
 import { MdPayments, MdNavigateNext } from "react-icons/md";
 import { MdOutlineNavigateNext } from "react-icons/md";
@@ -81,6 +86,7 @@ const icons = {
     ImPhoneHangUp,
     FiChevronDown,
     HiOutlineDotsHorizontal,
+    FaUserCircle,
 };
 
 export default icons;

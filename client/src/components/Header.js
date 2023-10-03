@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { Fragment, useEffect } from "react";
 import logo from "../assets/logo.png";
 import icons from "../ultils/icons";
 import Navigation from "./Navigation";
@@ -17,6 +17,8 @@ const Header = () => {
         dispatch(logout());
         navigate(paths.LOGIN);
     };
+
+    console.log(current);
 
     useEffect(() => {
         const setTimeoutId = setTimeout(() => {
@@ -114,14 +116,33 @@ const Header = () => {
                             <icons.FiHeart className="text-[22px] text-main mt-[8px]" />
                         </a>
                     </li>
-                    <li className="ml-[20px]">
-                        <a href="/" className="flex items-center">
-                            <icons.BsFillHandbagFill className="text-[22px] text-main mr-[6px]" />
-                            <span className="text-[15px] text-[#3d3d3d] mt-[5px]">
-                                1 item
-                            </span>
-                        </a>
-                    </li>
+                    {current && (
+                        <React.Fragment>
+                            <li className="ml-[20px]">
+                                <a href="/" className="flex items-center">
+                                    <icons.BsFillHandbagFill className="text-[22px] text-main mr-[6px]" />
+                                    <span className="text-[15px] text-[#3d3d3d] mt-[5px]">
+                                        0 item
+                                    </span>
+                                </a>
+                            </li>
+                            <li className="ml-[20px]">
+                                <Link
+                                    to={
+                                        +current?.role === 0
+                                            ? `/${paths.ADMIN}/${paths.DASHBOARD}`
+                                            : `/${paths.MEMBER}/${paths.PERSONAL}`
+                                    }
+                                    className="flex items-center"
+                                >
+                                    <icons.FaUserCircle className="text-[22px] text-main mr-[6px]" />
+                                    <span className="text-[15px] text-[#3d3d3d] mt-[5px]">
+                                        Profile
+                                    </span>
+                                </Link>
+                            </li>
+                        </React.Fragment>
+                    )}
                 </ul>
             </div>
             <Navigation />
