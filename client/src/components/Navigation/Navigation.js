@@ -1,7 +1,7 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 // import icons from "../ultils/icons";
-import { navigation } from "../ultils/navigation";
+import { navigation } from "../../ultils/navigation";
 
 const Navigation = () => {
     return (

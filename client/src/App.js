@@ -15,6 +15,15 @@ import {
     FinalRegister,
     ResetPassword,
 } from "./pages/public/";
+import {
+    AdminLayout,
+    CreateProduct,
+    Dashboard,
+    ManageOrder,
+    ManageUser,
+    ManageProduct,
+} from "./pages/admin/";
+import { MemberLayout, PersonalInformation } from "./pages/member/";
 import { getCategories } from "./store/app/asyncAction";
 import { useDispatch, useSelector } from "react-redux";
 import { Modal } from "./components";
@@ -47,6 +56,29 @@ function App() {
                     <Route
                         path={paths.RESET_PASSWORD}
                         element={<ResetPassword />}
+                    />
+                    <Route path={paths.ALL} element={<Home />} />
+                </Route>
+                <Route path={paths.ADMIN} element={<AdminLayout />}>
+                    <Route path={paths.DASHBOARD} element={<Dashboard />} />
+                    <Route
+                        path={paths.CREATE_PRODUCT}
+                        element={<CreateProduct />}
+                    />
+                    <Route
+                        path={paths.MANAGE_PRODUCT}
+                        element={<ManageProduct />}
+                    />
+                    <Route
+                        path={paths.MANAGE_ORDER}
+                        element={<ManageOrder />}
+                    />
+                    <Route path={paths.MANAGE_USER} element={<ManageUser />} />
+                </Route>
+                <Route path={paths.MEMBER} element={<MemberLayout />}>
+                    <Route
+                        path={paths.PERSONAL}
+                        element={<PersonalInformation />}
                     />
                 </Route>
                 <Route

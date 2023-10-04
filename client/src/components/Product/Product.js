@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { renderRatings, formatMoney } from "../ultils/helpers";
-import SelectOptions from "./SelectOptions";
-import icons from "../ultils/icons";
+import { renderRatings, formatMoney } from "../../ultils/helpers";
+import SelectOptions from "../Select/SelectOptions";
+import icons from "../../ultils/icons";
 import { Link } from "react-router-dom";
 
 const Product = ({ product, isNew }) => {

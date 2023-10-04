@@ -13,6 +13,18 @@ const paths = {
     DETAIL_PRODUCT: "product",
     FINAL_REGISTER: "finalregister/:status",
     RESET_PASSWORD: "reset-password/:token",
+
+    // ADMIN
+    ADMIN: "admin",
+    DASHBOARD: "dashboard",
+    CREATE_PRODUCT: "create-product",
+    MANAGE_USER: "manage-user",
+    MANAGE_PRODUCT: "manage-product",
+    MANAGE_ORDER: "manage-order",
+
+    // MEMBER
+    MEMBER: "member",
+    PERSONAL: "personal",
 };
 
 export default paths;

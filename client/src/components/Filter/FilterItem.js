@@ -1,10 +1,15 @@
 import React, { useState, useEffect } from "react";
-import { colors } from "../ultils/constants";
-import icons from "../ultils/icons";
-import { createSearchParams, useNavigate, useParams } from "react-router-dom";
-import { apiGetProducts } from "../apis";
-import { formatMoney } from "../ultils/helpers";
-import useDebounce from "../hooks/useDebounce";
+import { colors } from "../../ultils/constants";
+import icons from "../../ultils/icons";
+import {
+    createSearchParams,
+    useNavigate,
+    useParams,
+    useSearchParams,
+} from "react-router-dom";
+import { apiGetProducts } from "../../apis";
+import { formatMoney } from "../../ultils/helpers";
+import useDebounce from "../../hooks/useDebounce";
 
 const FilterItem = ({
     name,
@@ -14,12 +19,13 @@ const FilterItem = ({
 }) => {
     const [selected, setSelected] = useState([]);
     const [price, setPrice] = useState({
-        from: 0,
-        to: 0,
+        from: "",
+        to: "",
     });
     const [bestPrice, setBestPrice] = useState(null);
     const { category } = useParams();
     const navigate = useNavigate();
+    const [params] = useSearchParams();
 
     const fetchBestPriceProduct = async () => {
         const response = await apiGetProducts({ sort: "-price", limit: 1 });
@@ -43,38 +49,43 @@ const FilterItem = ({
     };
 
     useEffect(() => {
+        let param = [];
+        for (let i of params.entries()) param?.push(i);
+        const queries = {};
+        for (let i of param) queries[i[0]] = i[1];
         if (selected.length > 0) {
-            navigate({
-                pathnames: `/${category}`,
-                search: createSearchParams({
-                    color: selected.join(","),
-                }).toString(),
-            });
-        } else {
-            navigate({
-                pathnames: `/${category}`,
-                search: "",
-            });
-        }
-    }, [selected, category, navigate]);
+            queries.color = selected.join(",");
+            queries.page = 1;
+        } else delete queries.color;
+        navigate({
+            pathnames: `/${category}`,
+            search: createSearchParams(queries).toString(),
+        });
+    }, [selected, category, navigate, params]);
 
     const debouncePriceFrom = useDebounce(price.from, 500);
     const debouncePriceTo = useDebounce(price.to, 500);
 
     useEffect(() => {
-        const data = {};
-        if (Number(price.from) > 0) data.from = price.from;
-        if (Number(price.to) > 0) data.to = price.to;
-
+        let param = [];
+        for (let i of params.entries()) param?.push(i);
+        const queries = {};
+        for (let i of param) queries[i[0]] = i[1];
+        if (Number(price.from) > 0) queries.from = price.from;
+        else delete queries.from;
+        if (Number(price.to) > 0) queries.to = price.to;
+        else delete queries.to;
+        queries.page = 1;
         navigate({
             pathnames: `/${category}`,
-            search: createSearchParams(data).toString(),
+            search: createSearchParams(queries).toString(),
         });
     }, [
         debouncePriceFrom,
         debouncePriceTo,
         category,
         navigate,
+        params,
         price.from,
         price.to,
     ]);
@@ -102,10 +113,11 @@ const FilterItem = ({
                             onClick={(e) => {
                                 e.stopPropagation();
                                 setPrice({
-                                    from: 0,
-                                    to: 0,
+                                    from: "",
+                                    to: "",
                                 });
                                 setActiveFilter(false);
+                                changeActiveFilter(null);
                             }}
                             className="underline text-[14px] text-[#000]"
                         >
@@ -119,14 +131,14 @@ const FilterItem = ({
                                     From
                                 </div>
                                 <input
-                                    type="number"
+                                    type="text"
                                     onChange={(e) =>
                                         setPrice((prev) => ({
                                             ...prev,
                                             from: e.target.value,
                                         }))
                                     }
-                                    value={price[0]}
+                                    value={price.from}
                                     className="bg-[#f6f6f6] py-[10px] px-[6px] w-[124px] text-[#000] text-[16px]"
                                 />
                             </div>
@@ -135,14 +147,14 @@ const FilterItem = ({
                                     To
                                 </div>
                                 <input
-                                    type="number"
+                                    type="text"
                                     onChange={(e) =>
                                         setPrice((prev) => ({
                                             ...prev,
                                             to: e.target.value,
                                         }))
                                     }
-                                    value={price[1]}
+                                    value={price.to}
                                     className="bg-[#f6f6f6] py-[10px] px-[6px] w-[124px] text-[#000] text-[16px]"
                                 />
                             </div>
@@ -161,6 +173,7 @@ const FilterItem = ({
                                 onClick={(e) => {
                                     e.stopPropagation();
                                     setSelected([]);
+                                    changeActiveFilter(null);
                                 }}
                                 className="underline text-[14px] text-[#000]"
                             >

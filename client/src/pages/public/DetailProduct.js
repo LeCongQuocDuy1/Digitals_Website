@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useCallback } from "react";
-import BreadCrumb from "../../components/BreadCrumb";
+import BreadCrumb from "../../components/Common/BreadCrumb";
 import { useParams } from "react-router-dom";
 import { Button } from "../../components";
 import icons from "../../ultils/icons";
@@ -32,30 +32,26 @@ const DetailProduct = () => {
     const [quantity, setQuantity] = useState(1);
     const [update, setUpdate] = useState(false);
 
-    const fetchProducts = async () => {
-        const response = await apiGetProducts({ category });
-        if (response.success) {
-            setProducts(response.products);
-        }
-    };
-
-    const fetchProduct = async () => {
-        const response = await apiGetProduct(pid);
-        if (response.success) {
-            setProduct(response.product);
-            setCurrentThumb(response?.product?.thumb);
-        }
-    };
-
     useEffect(() => {
-        fetchProduct(pid);
+        const fetchProducts = async () => {
+            const response = await apiGetProducts({ category });
+            if (response.success) {
+                setProducts(response.products);
+            }
+        };
+
+        const fetchProduct = async () => {
+            const response = await apiGetProduct(pid);
+            if (response.success) {
+                setProduct(response.product);
+                setCurrentThumb(response?.product?.thumb);
+            }
+        };
+
+        if (pid) fetchProduct(pid);
         fetchProducts();
         window.scrollTo(0, 0);
     }, [category, pid]);
-
-    useEffect(() => {
-        if (pid) fetchProduct(pid);
-    }, [update, pid]);
 
     const rerender = useCallback(() => {
         setUpdate(!update);

@@ -1,7 +1,7 @@
 import React, { useState, useCallback, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { InputField, Button } from "../../components";
+import { InputField, Button, Loading } from "../../components";
 import {
     apiLogin,
     apiRegister,
@@ -12,6 +12,7 @@ import Swal from "sweetalert2";
 import paths from "../../ultils/paths";
 import { login } from "../../store/user/userSlice";
 import { validate } from "../../ultils/helpers";
+import { showModal } from "../../store/app/appSlice";
 
 const Login = () => {
     const [payload, setPayload] = useState({
@@ -51,8 +52,13 @@ const Login = () => {
 
         if (invalids === 0) {
             if (isRegister) {
+                dispatch(
+                    showModal({ isShowModal: true, modalChildren: <Loading /> })
+                );
                 const response = await apiRegister(payload);
-
+                dispatch(
+                    showModal({ isShowModal: false, modalChildren: null })
+                );
                 if (response.success) {
                     setIsVerifyEmail(true);
                     // Swal.fire(

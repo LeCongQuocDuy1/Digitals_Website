@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import logo from "../assets/logo.png";
-import { voteOptions } from "../ultils/constants";
-import icons from "../ultils/icons";
+import logo from "../../assets/logo.png";
+import { voteOptions } from "../../ultils/constants";
+import icons from "../../ultils/icons";
 
 const VoteOption = ({ nameProduct, handleSubmitVote }) => {
     const [activeStar, setActiveStar] = useState(null);

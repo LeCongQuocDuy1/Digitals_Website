@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { renderRatings, formatMoney } from "../ultils/helpers";
-import icons from "../ultils/icons";
-import { apiGetProducts } from "../apis";
-import FeaturedGallery from "./FeaturedGallery";
+import { renderRatings, formatMoney } from "../../ultils/helpers";
+import icons from "../../ultils/icons";
+import { apiGetProducts } from "../../apis";
+import FeaturedGallery from "../Featured/FeaturedGallery";
 import { Link } from "react-router-dom";
 
 const FeaturedProducts = () => {

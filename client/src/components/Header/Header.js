@@ -1,12 +1,12 @@
 import React, { useEffect } from "react";
-import logo from "../assets/logo.png";
-import icons from "../ultils/icons";
-import Navigation from "./Navigation";
+import logo from "../../assets/logo.png";
+import icons from "../../ultils/icons";
+import Navigation from "../Navigation/Navigation";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import paths from "../ultils/paths";
-import { getCurrent } from "../store/user/asyncAction";
-import { logout } from "../store/user/userSlice";
+import paths from "../../ultils/paths";
+import { getCurrent } from "../../store/user/asyncAction";
+import { logout } from "../../store/user/userSlice";
 
 const Header = () => {
     const dispatch = useDispatch();
@@ -114,14 +114,33 @@ const Header = () => {
                             <icons.FiHeart className="text-[22px] text-main mt-[8px]" />
                         </a>
                     </li>
-                    <li className="ml-[20px]">
-                        <a href="/" className="flex items-center">
-                            <icons.BsFillHandbagFill className="text-[22px] text-main mr-[6px]" />
-                            <span className="text-[15px] text-[#3d3d3d] mt-[5px]">
-                                1 item
-                            </span>
-                        </a>
-                    </li>
+                    {current && (
+                        <React.Fragment>
+                            <li className="ml-[20px]">
+                                <a href="/" className="flex items-center">
+                                    <icons.BsFillHandbagFill className="text-[22px] text-main mr-[6px]" />
+                                    <span className="text-[15px] text-[#3d3d3d] mt-[5px]">
+                                        0 item
+                                    </span>
+                                </a>
+                            </li>
+                            <li className="ml-[20px]">
+                                <Link
+                                    to={
+                                        +current?.role === 0
+                                            ? `/${paths.ADMIN}/${paths.DASHBOARD}`
+                                            : `/${paths.MEMBER}/${paths.PERSONAL}`
+                                    }
+                                    className="flex items-center"
+                                >
+                                    <icons.FaUserCircle className="text-[22px] text-main mr-[6px]" />
+                                    <span className="text-[15px] text-[#3d3d3d] mt-[5px]">
+                                        Profile
+                                    </span>
+                                </Link>
+                            </li>
+                        </React.Fragment>
+                    )}
                 </ul>
             </div>
             <Navigation />

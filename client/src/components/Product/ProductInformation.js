@@ -1,17 +1,17 @@
 import React, { useCallback, useState } from "react";
 import Slider from "react-slick";
-import Product from "./Product";
-import { productInfos } from "../ultils/constants";
-import VoteBar from "./VoteBar";
-import VoteOption from "./VoteOption";
-import { renderRatings } from "../ultils/helpers";
-import { apiRatings } from "../apis/products";
+import Product from "../Product/Product";
+import { productInfos } from "../../ultils/constants";
+import VoteBar from "../Vote/VoteBar";
+import VoteOption from "../Vote/VoteOption";
+import { renderRatings } from "../../ultils/helpers";
+import { apiRatings } from "../../apis/products";
 import { useDispatch, useSelector } from "react-redux";
-import { showModal } from "../store/app/appSlice";
+import { showModal } from "../../store/app/appSlice";
 import Swal from "sweetalert2";
-import paths from "../ultils/paths";
+import paths from "../../ultils/paths";
 import { useNavigate } from "react-router-dom";
-import Comment from "./Comment";
+import Comment from "../Common/Comment";
 
 const settings = {
     dots: false,

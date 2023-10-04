@@ -1,5 +1,5 @@
 import React from "react";
-import BreadCrumb from "../../components/BreadCrumb";
+import BreadCrumb from "../../components/Common/BreadCrumb";
 
 const About = () => {
     return (
