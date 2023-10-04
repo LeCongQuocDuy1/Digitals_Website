@@ -5,7 +5,10 @@ import {
     useSearchParams,
     createSearchParams,
 } from "react-router-dom";
-import { BreadCrumb, Product, FilterItem, Pagination } from "../../components/";
+import BreadCrumb from "../../components/Common/BreadCrumb";
+import Pagination from "../../components/Pagination/Pagination";
+import Product from "../../components/Product/Product";
+import FilterItem from "../../components/Filter/FilterItem";
 import { apiGetProducts } from "../../apis/";
 import { sorts } from "../../ultils/constants";
 

@@ -1,13 +1,11 @@
 import React from "react";
-import {
-    Sidebar,
-    Banner,
-    Sellers,
-    DealDaily,
-    FeaturedProducts,
-    NewArrivals,
-    HotCollections,
-} from "../../components/";
+import Sidebar from "../../components/Sidebar/Sidebar";
+import Banner from "../../components/Common/Banner";
+import Sellers from "../../components/Common/Sellers";
+import DealDaily from "../../components/Common/DealDaily";
+import FeaturedProducts from "../../components/Featured/FeaturedProducts";
+import NewArrivals from "../../components/Common/NewArrivals";
+import HotCollections from "../../components/Common/HotCollections";
 // import { apiGetProducts } from "../../apis/";
 // import { useSelector } from "react-redux";
 

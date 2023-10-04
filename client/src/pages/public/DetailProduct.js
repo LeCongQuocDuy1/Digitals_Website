@@ -1,13 +1,11 @@
 import React, { useEffect, useState, useCallback } from "react";
 import BreadCrumb from "../../components/Common/BreadCrumb";
 import { useParams } from "react-router-dom";
-import { Button } from "../../components";
+import Button from "../../components/Button/Button";
+import ProductExtrainfo from "../../components/Product/ProductExtrainfo";
+import ProductInformation from "../../components/Product/ProductInformation";
+import SelectQuantity from "../../components/Select/SelectQuantity";
 import icons from "../../ultils/icons";
-import {
-    ProductExtrainfo,
-    SelectQuantity,
-    ProductInformation,
-} from "../../components";
 import { apiGetProduct, apiGetProducts } from "../../apis/products";
 import { formatMoney, renderRatings } from "../../ultils/helpers";
 import Slider from "react-slick";

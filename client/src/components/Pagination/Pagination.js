@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import PaginationItem from "./PaginationItem";
 import usePagination from "../../hooks/usePagination";
 import { useSearchParams } from "react-router-dom";

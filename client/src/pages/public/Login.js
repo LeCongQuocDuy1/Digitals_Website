@@ -1,7 +1,9 @@
 import React, { useState, useCallback, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { InputField, Button, Loading } from "../../components";
+import Loading from "../../components/Common/Loading";
+import InputField from "../../components/Input/InputField";
+import Button from "../../components/Button/Button";
 import {
     apiLogin,
     apiRegister,
