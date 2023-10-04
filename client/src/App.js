@@ -26,7 +26,7 @@ import {
 import { MemberLayout, PersonalInformation } from "./pages/member/";
 import { getCategories } from "./store/app/asyncAction";
 import { useDispatch, useSelector } from "react-redux";
-import { Modal } from "./components";
+import Modal from "./components/Modal/Modal";
 
 function App() {
     const dispatch = useDispatch();

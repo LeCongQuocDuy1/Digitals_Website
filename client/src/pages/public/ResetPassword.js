@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button } from "../../components";
+import Button from "../../components/Button/Button";
 import { useParams } from "react-router-dom";
 import { apiResetPassword } from "../../apis/";
 import Swal from "sweetalert2";
