@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import PaginationItem from "./PaginationItem";
-import usePagination from "../hooks/usePagination";
+import usePagination from "../../hooks/usePagination";
 import { useSearchParams } from "react-router-dom";
 // totalPage = 66, limitProductOnPage = 10 => (66 / 10) = 6.6 = 7 pages
 // totalPaginationItem = sib + 5;

@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { apiGetProducts } from "../apis/";
-import { renderRatings, formatMoney, secondsToHms } from "../ultils/helpers";
+import { apiGetProducts } from "../../apis/";
+import { renderRatings, formatMoney, secondsToHms } from "../../ultils/helpers";
 import moment from "moment";
-import icons from "../ultils/icons";
-import CountDown from "./CountDown";
+import icons from "../../ultils/icons";
+import CountDown from "../Common/CountDown";
 import { Link } from "react-router-dom";
 
 const DealDaily = () => {

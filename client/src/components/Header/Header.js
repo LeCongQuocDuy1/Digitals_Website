@@ -1,12 +1,12 @@
-import React, { Fragment, useEffect } from "react";
-import logo from "../assets/logo.png";
-import icons from "../ultils/icons";
-import Navigation from "./Navigation";
+import React, { useEffect } from "react";
+import logo from "../../assets/logo.png";
+import icons from "../../ultils/icons";
+import Navigation from "../Navigation/Navigation";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import paths from "../ultils/paths";
-import { getCurrent } from "../store/user/asyncAction";
-import { logout } from "../store/user/userSlice";
+import paths from "../../ultils/paths";
+import { getCurrent } from "../../store/user/asyncAction";
+import { logout } from "../../store/user/userSlice";
 
 const Header = () => {
     const dispatch = useDispatch();
@@ -17,8 +17,6 @@ const Header = () => {
         dispatch(logout());
         navigate(paths.LOGIN);
     };
-
-    console.log(current);
 
     useEffect(() => {
         const setTimeoutId = setTimeout(() => {

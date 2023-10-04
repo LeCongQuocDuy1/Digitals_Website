@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from "react";
-import { colors } from "../ultils/constants";
-import icons from "../ultils/icons";
+import { colors } from "../../ultils/constants";
+import icons from "../../ultils/icons";
 import {
     createSearchParams,
     useNavigate,
     useParams,
     useSearchParams,
 } from "react-router-dom";
-import { apiGetProducts } from "../apis";
-import { formatMoney } from "../ultils/helpers";
-import useDebounce from "../hooks/useDebounce";
+import { apiGetProducts } from "../../apis";
+import { formatMoney } from "../../ultils/helpers";
+import useDebounce from "../../hooks/useDebounce";
 
 const FilterItem = ({
     name,
@@ -61,7 +61,7 @@ const FilterItem = ({
             pathnames: `/${category}`,
             search: createSearchParams(queries).toString(),
         });
-    }, [selected, category, navigate]);
+    }, [selected, category, navigate, params]);
 
     const debouncePriceFrom = useDebounce(price.from, 500);
     const debouncePriceTo = useDebounce(price.to, 500);
@@ -80,7 +80,15 @@ const FilterItem = ({
             pathnames: `/${category}`,
             search: createSearchParams(queries).toString(),
         });
-    }, [debouncePriceFrom, debouncePriceTo]);
+    }, [
+        debouncePriceFrom,
+        debouncePriceTo,
+        category,
+        navigate,
+        params,
+        price.from,
+        price.to,
+    ]);
 
     return (
         <div

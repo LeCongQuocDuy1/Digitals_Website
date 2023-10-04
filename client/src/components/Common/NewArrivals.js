@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Slider from "react-slick";
-import Product from "./Product";
-import { apiGetProducts } from "../apis/";
+import Product from "../Product/Product";
+import { apiGetProducts } from "../../apis/";
 
 const tabs = [
     {

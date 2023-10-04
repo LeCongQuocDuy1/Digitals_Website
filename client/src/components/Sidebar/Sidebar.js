@@ -1,6 +1,6 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import icons from "../ultils/icons";
+import icons from "../../ultils/icons";
 import { useSelector } from "react-redux";
 
 const Sidebar = () => {

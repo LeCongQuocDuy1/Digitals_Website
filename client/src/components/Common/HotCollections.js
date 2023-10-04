@@ -1,6 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import icons from "../ultils/icons";
+import icons from "../../ultils/icons";
 import { Link } from "react-router-dom";
 
 const HotCollections = () => {

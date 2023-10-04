@@ -1,3 +1,6 @@
+import paths from "./paths";
+import icons from "./icons";
+
 export const productInfos = [
     {
         id: 1,
@@ -126,5 +129,45 @@ export const voteOptions = [
     {
         id: 5,
         text: "Perfect",
+    },
+];
+
+export const adminSidebar = [
+    {
+        id: 1,
+        type: "single",
+        text: "Dashboard",
+        path: `/${paths.ADMIN}/${paths.DASHBOARD}`,
+        icon: <icons.AiOutlineDashboard />,
+    },
+    {
+        id: 2,
+        type: "single",
+        text: "Manage Users",
+        path: `/${paths.ADMIN}/${paths.MANAGE_USER}`,
+        icon: <icons.FaUsers />,
+    },
+    {
+        id: 3,
+        type: "parent",
+        text: "Manage Products",
+        icon: <icons.FaBoxOpen />,
+        submenu: [
+            {
+                text: "Create Product",
+                path: `/${paths.ADMIN}/${paths.CREATE_PRODUCT}`,
+            },
+            {
+                text: "Manage Products",
+                path: `/${paths.ADMIN}/${paths.MANAGE_PRODUCT}`,
+            },
+        ],
+    },
+    {
+        id: 4,
+        type: "single",
+        text: "Manage Orders",
+        path: `/${paths.ADMIN}/${paths.MANAGE_ORDER}`,
+        icon: <icons.RiPagesLine />,
     },
 ];
