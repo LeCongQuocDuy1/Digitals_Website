@@ -167,12 +167,84 @@ const getUser = asyncHandler(async (req, res) => {
 });
 
 const getUsers = asyncHandler(async (req, res) => {
-    const response = await User.find().select(
-        "-refreshToken -password -role -passwordChangeAt"
+    const queries = { ...req.query };
+
+    // Tách và xóa các trường đặc biệt ra khỏi queries
+    const excludeFields = ["limit", "page", "sort", "fields"];
+    excludeFields.forEach((field) => delete queries[field]);
+
+    // Format lại các operators cho đúng cú pháp của mongodb
+    let queryString = JSON.stringify(queries);
+    queryString = queryString.replace(
+        /\b(gte|gt|lte|lt)\b/g,
+        (match) => `$${match}`
     );
-    return res.status(200).json({
-        success: response ? true : false,
-        users: response,
+    const formatedQueries = JSON.parse(queryString);
+
+    // Filtering
+    if (queries?.firstname)
+        formatedQueries.firstname = {
+            $regex: queries.firstname,
+            $options: "i",
+        };
+
+    // Search query
+    if (req.query.q) {
+        delete formatedQueries.q;
+        formatedQueries["$or"] = [
+            {
+                firstname: {
+                    $regex: req.query.q,
+                    $options: "i",
+                },
+            },
+            {
+                lastname: {
+                    $regex: req.query.q,
+                    $options: "i",
+                },
+            },
+            {
+                email: {
+                    $regex: req.query.q,
+                    $options: "i",
+                },
+            },
+        ];
+    }
+
+    let queryCommand = User.find(formatedQueries);
+
+    // Sorting
+    if (req.query.sort) {
+        const sortBy = req.query.sort.split(",").join(" ");
+        queryCommand = queryCommand.sort(sortBy);
+    }
+
+    // Fields Limiting
+    if (req.query.fields) {
+        const fields = req.query.fields.split(",").join(" ");
+        queryCommand = queryCommand.select(fields);
+    }
+
+    // Pagination
+
+    // limit: Số phần tử một lần lấy
+    // skip: bỏ qua phần tử
+    // page: số trang
+    const page = +req.query.page || 1;
+    const limit = +req.query.limit || process.env.LIMIT_PRODUCTS;
+    const skip = (page - 1) * limit;
+    queryCommand.skip(skip).limit(limit);
+
+    queryCommand.exec(async (err, response) => {
+        if (err) throw new Error(err.message);
+        const counts = await User.find(formatedQueries).countDocuments();
+        return res.status(200).json({
+            counts,
+            success: response ? true : false,
+            users: response ? response : "User not found!",
+        });
     });
 });
 

@@ -5,9 +5,9 @@ import { useSearchParams } from "react-router-dom";
 // totalPage = 66, limitProductOnPage = 10 => (66 / 10) = 6.6 = 7 pages
 // totalPaginationItem = sib + 5;
 
-const Pagination = ({ totalCount }) => {
-    const pagination = usePagination(totalCount, 2);
+const Pagination = ({ title, totalCount }) => {
     const [params] = useSearchParams();
+    const pagination = usePagination(totalCount, params.get("page") || 1);
     const range = () => {
         const currentPage = +params.get("page");
         const pagesize = +process.env.REACT_APP_PRODUCT_LIMIT || 10;
@@ -17,16 +17,16 @@ const Pagination = ({ totalCount }) => {
     };
 
     return (
-        <div className="flex w-main justify-between items-center">
+        <div className="flex justify-between items-center">
             {!+params.get("page") && (
-                <span className="">{`Show products 1 - ${
+                <span className="">{`Show ${title} 1 - ${
                     process.env.REACT_APP_PRODUCT_LIMIT || 10
                 } of ${totalCount}`}</span>
             )}
             {!+params.get("page") ? (
                 <div className=""></div>
             ) : (
-                <span className="">{`Show products ${range()} of ${totalCount}`}</span>
+                <span className="">{`Show ${title} ${range()} of ${totalCount}`}</span>
             )}
             <div className="flex items-center">
                 {pagination?.map((item) => (

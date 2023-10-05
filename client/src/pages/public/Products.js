@@ -33,11 +33,8 @@ const Products = () => {
     }, []);
 
     useEffect(() => {
-        let param = [];
-        for (let i of params.entries()) param?.push(i);
-        const queries = {};
+        const queries = Object.fromEntries([...params]);
         let priceQuery = {};
-        for (let i of params) queries[i[0]] = i[1];
         if (queries.from && queries.to) {
             priceQuery = {
                 $and: [
@@ -138,7 +135,10 @@ const Products = () => {
                 </div>
                 {products?.products.length > 0 && (
                     <div className="w-full flex items-center justify-end mt-[50px]">
-                        <Pagination totalCount={products?.counts} />
+                        <Pagination
+                            title="products"
+                            totalCount={products?.counts}
+                        />
                     </div>
                 )}
             </div>
