@@ -249,12 +249,14 @@ const getUsers = asyncHandler(async (req, res) => {
 });
 
 const deleteUser = asyncHandler(async (req, res, next) => {
-    const { _id } = req.query;
-    if (!_id) throw new Error("Can't find this user. Please try again");
-    const response = await User.findByIdAndDelete(_id);
+    const { uid } = req.params;
+    if (!uid) throw new Error("Can't find this user. Please try again");
+    const response = await User.findByIdAndDelete(uid);
     return res.status(200).json({
         success: response ? true : false,
-        deletedUser: response ? "User deleted successfully" : "User not found",
+        message: response
+            ? "User deleted successfully"
+            : "User deleted failed!",
     });
 });
 
@@ -280,6 +282,9 @@ const updateUserByAdmin = asyncHandler(async (req, res, next) => {
     }).select("-refreshToken -password -role -passwordChangeAt");
     return res.status(200).json({
         success: response ? true : false,
+        message: response
+            ? "Updated user successfully."
+            : "Update user failed!",
         updatedUser: response ? response : "User not found",
     });
 });

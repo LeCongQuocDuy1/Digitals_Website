@@ -12,7 +12,7 @@ router.put("/update-address", verifyAccessToken, controllers.updateAddressUser);
 router.put("/cart", verifyAccessToken, controllers.updateCart);
 router.put("/current", verifyAccessToken, controllers.updateUser);
 router.put("/:uid", verifyAccessToken, isAdmin, controllers.updateUserByAdmin);
-router.delete("/", verifyAccessToken, isAdmin, controllers.deleteUser);
+router.delete("/:uid", verifyAccessToken, isAdmin, controllers.deleteUser);
 router.get("/current", verifyAccessToken, controllers.getUser);
 router.post("/forgot-password", controllers.forgotPassword);
 router.get("/logout", controllers.logout);
