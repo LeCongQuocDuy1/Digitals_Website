@@ -12,7 +12,7 @@ const AdminLayout = () => {
 
     return (
         <div className="flex items-center">
-            <div className="h-screen bg-[#080707] w-[327px] text-white py-7">
+            <div className="h-screen bg-[#080707] w-[270px] text-white py-7">
                 <AdminSidebar />
             </div>
             <div className="flex-1">

@@ -16,7 +16,7 @@ import {
     FaShare,
     FaUserCircle,
 } from "react-icons/fa";
-import { BiChevronDown } from "react-icons/bi";
+import { BiChevronDown, BiSearch } from "react-icons/bi";
 import { RiPagesLine } from "react-icons/ri";
 import {
     HiMail,
@@ -99,6 +99,7 @@ const icons = {
     FaBoxOpen,
     RiPagesLine,
     AiFillCaretRight,
+    BiSearch,
 };
 
 export default icons;
