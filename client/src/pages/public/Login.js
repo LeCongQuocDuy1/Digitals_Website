@@ -137,6 +137,12 @@ const Login = () => {
         setToken("");
     };
 
+    const handleKeyPress = (e) => {
+        if (e.key === "Enter") {
+            handleSubmit();
+        }
+    };
+
     return (
         <div className="grid grid-cols-3 relative">
             {isVerifyEmail && (
@@ -184,25 +190,30 @@ const Login = () => {
                                 <InputField
                                     value={payload.firstname}
                                     nameKey="firstname"
+                                    type="text"
                                     setValue={setPayload}
                                     invalidFields={invalidFields}
                                     setInvalidFields={setInvalidFields}
+                                    handleKeyPress={handleKeyPress}
                                 />
                                 <InputField
                                     value={payload.lastname}
                                     nameKey="lastname"
+                                    type="text"
                                     setValue={setPayload}
                                     invalidFields={invalidFields}
                                     setInvalidFields={setInvalidFields}
+                                    handleKeyPress={handleKeyPress}
                                 />
                             </div>
                             <InputField
                                 value={payload.mobile}
                                 nameKey="mobile"
                                 setValue={setPayload}
-                                type="mobile"
+                                type="text"
                                 invalidFields={invalidFields}
                                 setInvalidFields={setInvalidFields}
+                                handleKeyPress={handleKeyPress}
                             />
                         </React.Fragment>
                     )}
@@ -213,6 +224,7 @@ const Login = () => {
                         type="email"
                         invalidFields={invalidFields}
                         setInvalidFields={setInvalidFields}
+                        handleKeyPress={handleKeyPress}
                     />
                     {!isResetPassword && (
                         <InputField
@@ -222,6 +234,7 @@ const Login = () => {
                             type="password"
                             invalidFields={invalidFields}
                             setInvalidFields={setInvalidFields}
+                            handleKeyPress={handleKeyPress}
                         />
                     )}
                     <Button

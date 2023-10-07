@@ -11,6 +11,7 @@ import { useForm } from "react-hook-form";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Swal from "sweetalert2";
+import { roles, blockStatus } from "../../ultils/constants";
 
 const ManageUser = () => {
     const {
@@ -37,6 +38,10 @@ const ManageUser = () => {
         setUpdate(!update);
     }, [update]);
     const queriesDebounce = useDebounce(searchValue.q, 800);
+
+    const handleUpdateEl = (user) => {
+        setEditUser(user);
+    };
 
     const handleUpdate = async (data) => {
         const response = await apiUpdateUser(data, editUser._id);
@@ -84,6 +89,8 @@ const ManageUser = () => {
         fetchUsers(queries);
     }, [queriesDebounce, params, update]);
 
+    console.log(editUser);
+
     return (
         <div className="bg-white h-screen p-5">
             <ToastContainer
@@ -108,7 +115,7 @@ const ManageUser = () => {
                     value={searchValue.q}
                     setValue={setSearchValue}
                     width={"w-[300px]"}
-                    placeholder="Search users with full name or email..."
+                    placeholder="Search users..."
                     icon={
                         <icons.BiSearch className="text-[24px] cursor-pointer" />
                     }
@@ -204,7 +211,17 @@ const ManageUser = () => {
                                     </td>
                                     <td className="px-6 py-4">
                                         {editUser?._id === user?._id ? (
-                                            <SelectForm />
+                                            <SelectForm
+                                                defaultValue={+editUser?.role}
+                                                register={register}
+                                                errors={errors}
+                                                id={"role"}
+                                                validate={{
+                                                    required:
+                                                        "Role is required!",
+                                                }}
+                                                options={roles}
+                                            />
                                         ) : (
                                             <span>
                                                 {user?.role === "0"
@@ -237,7 +254,19 @@ const ManageUser = () => {
                                     <td className="px-6 py-4">
                                         <div className="flex items-center">
                                             {editUser?._id === user?._id ? (
-                                                <SelectForm />
+                                                <SelectForm
+                                                    defaultValue={
+                                                        editUser?.isBlocked
+                                                    }
+                                                    register={register}
+                                                    errors={errors}
+                                                    id={"isBlocked"}
+                                                    validate={{
+                                                        required:
+                                                            "Active is required!",
+                                                    }}
+                                                    options={blockStatus}
+                                                />
                                             ) : (
                                                 <React.Fragment>
                                                     {user?.isBlocked ? (
@@ -253,7 +282,7 @@ const ManageUser = () => {
                                         </div>
                                     </td>
                                     <td className="px-6 py-4 flex items-center gap-2">
-                                        {editUser ? (
+                                        {editUser?._id === user?._id ? (
                                             <div
                                                 onClick={() =>
                                                     setEditUser(null)
@@ -265,7 +294,7 @@ const ManageUser = () => {
                                         ) : (
                                             <div
                                                 onClick={() =>
-                                                    setEditUser(user)
+                                                    handleUpdateEl(user)
                                                 }
                                                 className="flex justify-center w-full font-medium bg-blue-500 hover:bg-blue-600 text-white p-2 rounded-md cursor-pointer"
                                             >

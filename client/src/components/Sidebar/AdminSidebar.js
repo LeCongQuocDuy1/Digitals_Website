@@ -25,10 +25,10 @@ const AdminSidebar = () => {
                             <NavLink
                                 to={item.path}
                                 className={({ isActive }) =>
-                                    `flex items-center p-3 hover:bg-[#f9bb487a] rounded-[10px] ${
+                                    `flex items-center p-3 rounded-[10px] ${
                                         isActive
                                             ? "bg-[#f9ba48] hover:bg-[#f9ba48]"
-                                            : ""
+                                            : "hover:bg-[#f9bb487a]"
                                     }`
                                 }
                             >
