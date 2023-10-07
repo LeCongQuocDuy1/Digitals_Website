@@ -10,10 +10,11 @@ const InputField = ({
     width,
     icon,
     placeholder,
+    handleKeyPress,
 }) => {
     return (
         <React.Fragment>
-            <div className="flex items-center gap-2 bg-[#eff2f2] py-[15px] px-[15px] mb-[12px]">
+            <div className="flex items-center gap-2 bg-[#eff2f2]  mb-[12px]">
                 <input
                     type={type || ""}
                     value={value}
@@ -25,9 +26,10 @@ const InputField = ({
                         }))
                     }
                     onFocus={() => setInvalidFields && setInvalidFields([])}
+                    onKeyPress={handleKeyPress}
                     className={`outline-none border-none ${
                         width ? width : "w-full"
-                    } text-[16px] focus:shadow-transparent bg-[#eff2f2] text-[#000]`}
+                    } py-[15px] px-[15px] text-[16px] bg-[#eff2f2] text-[#000]`}
                 />
                 {icon}
             </div>

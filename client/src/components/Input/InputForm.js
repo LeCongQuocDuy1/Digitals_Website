@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 
 const InputForm = ({
     label,
@@ -35,4 +35,4 @@ const InputForm = ({
     );
 };
 
-export default InputForm;
+export default memo(InputForm);
