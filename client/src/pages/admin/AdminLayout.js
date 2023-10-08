@@ -11,8 +11,8 @@ const AdminLayout = () => {
         return <Navigate to={`/${paths.LOGIN}`} replace={true} />;
 
     return (
-        <div className="flex items-center">
-            <div className="h-screen bg-[#080707] w-[270px] text-white py-7">
+        <div className="flex items-start h-[1500px]">
+            <div className="h-full bg-[#080707] w-[270px] text-white py-7">
                 <AdminSidebar />
             </div>
             <div className="flex-1">
