@@ -37,7 +37,7 @@ function App() {
     }, [dispatch]);
 
     return (
-        <div className="font-main relative">
+        <div className="font-main">
             {isShowModal && <Modal>{modalChildren}</Modal>}
             <Routes>
                 <Route path={paths.PUBLIC} element={<Public />}>

@@ -17,7 +17,6 @@ const ManageUser = () => {
     const {
         register,
         handleSubmit,
-        watch,
         formState: { errors },
     } = useForm({
         firstname: "",
@@ -105,7 +104,6 @@ const ManageUser = () => {
                 pauseOnHover
                 theme="light"
             />
-            {/* Same as */}
             <ToastContainer />
             <h1 className="text-[28px] font-bold">Manage Users</h1>
 

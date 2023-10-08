@@ -66,10 +66,10 @@ const AdminSidebar = () => {
                                                     e.stopPropagation()
                                                 }
                                                 className={({ isActive }) =>
-                                                    `flex items-center p-3 hover:bg-[#f9bb487a] rounded-[10px] pl-[46px] ${
+                                                    `flex items-center p-3 rounded-[10px] pl-[46px] ${
                                                         isActive
                                                             ? "bg-[#f9ba48] hover:bg-[#f9ba48]"
-                                                            : ""
+                                                            : "hover:bg-[#f9bb487a]"
                                                     }`
                                                 }
                                             >

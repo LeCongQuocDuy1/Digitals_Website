@@ -12,6 +12,7 @@ export { default as HotCollections } from "./Common/HotCollections";
 export { default as BreadCrumb } from "./Common/BreadCrumb";
 export { default as InputField } from "./Input/InputField";
 export { default as InputForm } from "./Input/InputForm";
+export { default as MarkdownEditor } from "./Input/MarkdownEditor";
 export { default as Button } from "./Button/Button";
 export { default as ProductExtrainfo } from "./Product/ProductExtrainfo";
 export { default as SelectQuantity } from "./Select/SelectQuantity";
