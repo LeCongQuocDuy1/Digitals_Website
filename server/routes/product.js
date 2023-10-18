@@ -3,7 +3,22 @@ const controllers = require("../controllers/product");
 const { verifyAccessToken, isAdmin } = require("../middlewares/verifyToken");
 const uploadCloud = require("../config/cloudinary.config");
 
-router.post("/", verifyAccessToken, isAdmin, controllers.createProduct);
+router.post(
+    "/",
+    verifyAccessToken,
+    isAdmin,
+    uploadCloud.fields([
+        {
+            name: "images",
+            maxCount: 10,
+        },
+        {
+            name: "thumb",
+            maxCount: 1,
+        },
+    ]),
+    controllers.createProduct
+);
 router.get("/", controllers.getProducts);
 router.put("/ratings", verifyAccessToken, controllers.ratings);
 

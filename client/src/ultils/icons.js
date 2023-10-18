@@ -15,6 +15,7 @@ import {
     FaShieldAlt,
     FaShare,
     FaUserCircle,
+    FaTrashAlt,
 } from "react-icons/fa";
 import { BiChevronDown, BiSearch } from "react-icons/bi";
 import { RiPagesLine } from "react-icons/ri";
@@ -100,6 +101,7 @@ const icons = {
     RiPagesLine,
     AiFillCaretRight,
     BiSearch,
+    FaTrashAlt,
 };
 
 export default icons;

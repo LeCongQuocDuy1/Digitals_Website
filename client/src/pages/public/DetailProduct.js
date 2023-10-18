@@ -10,6 +10,7 @@ import { apiGetProduct, apiGetProducts } from "../../apis/products";
 import { formatMoney, renderRatings } from "../../ultils/helpers";
 import Slider from "react-slick";
 import ReactImageMagnify from "react-image-magnify";
+import DOMPurify from "dompurify";
 
 const settings = {
     dots: false,
@@ -143,14 +144,25 @@ const DetailProduct = () => {
                                 </span>
                             </div>
                             <ul className="mb-[20px]">
-                                {product?.description.map((desc, index) => (
-                                    <li
-                                        key={index}
-                                        className="relative text-[14px] text-[#505050] before:absolute before:block before:content before:content-[''] before:w-[6px] before:h-[6px] before:bg-black before:top-[38%] before:left-[2px] pl-[22px] mb-[10px]"
-                                    >
-                                        {desc}
-                                    </li>
-                                ))}
+                                {product?.description?.length > 1 &&
+                                    product?.description.map((desc, index) => (
+                                        <li
+                                            key={index}
+                                            className="relative text-[14px] text-[#505050] before:absolute before:block before:content before:content-[''] before:w-[6px] before:h-[6px] before:bg-black before:top-[38%] before:left-[2px] pl-[22px] mb-[10px]"
+                                        >
+                                            {desc}
+                                        </li>
+                                    ))}
+                                {product?.description?.length === 1 && (
+                                    <div
+                                        className="text-[14px] text-[#505050]"
+                                        dangerouslySetInnerHTML={{
+                                            __html: DOMPurify.sanitize(
+                                                product?.description[0]
+                                            ),
+                                        }}
+                                    ></div>
+                                )}
                             </ul>
                             <div className="">
                                 <div className="flex items-center gap-[20px] mb-[20px]">

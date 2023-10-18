@@ -19,3 +19,10 @@ export const apiRatings = (data) =>
         method: "PUT",
         data,
     });
+
+export const apiCreateProduct = (data) =>
+    axios({
+        url: "/product/",
+        method: "POST",
+        data,
+    });
