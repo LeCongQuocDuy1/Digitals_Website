@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import InputForm from "../../components/Input/InputForm";
 import MarkdownEditor from "../../components/Input/MarkdownEditor";
 import SelectForm from "../../components/Select/SelectForm";
@@ -6,7 +6,8 @@ import Button from "../../components/Button/Button";
 import { useForm } from "react-hook-form";
 import { ToastContainer, toast } from "react-toastify";
 import { useSelector } from "react-redux";
-import { validate } from "../../ultils/helpers";
+import { validate, filetoBase64 } from "../../ultils/helpers";
+import { apiCreateProduct } from "../../apis/products";
 
 const CreateProduct = () => {
     const {
@@ -20,12 +21,17 @@ const CreateProduct = () => {
     const [payload, setPayload] = useState({
         description: "",
     });
+    const [preview, setPreview] = useState({
+        thumb: null,
+        images: [],
+    });
     const [invalidFields, setInvalidFields] = useState([]);
+    const [hoverElment, setHoverElement] = useState(null);
     const changeValue = useCallback((e) => {
         setPayload(e);
     });
 
-    const handleCreateProduct = (data) => {
+    const handleCreateProduct = async (data) => {
         const invalids = validate(payload, setInvalidFields);
         if (invalids === 0) {
             if (data?.category)
@@ -33,9 +39,61 @@ const CreateProduct = () => {
                     (c) => c._id === data.category
                 ).title;
             const finalPayload = { ...data, ...payload };
-            console.log(finalPayload);
+            const formData = new FormData();
+            for (let i of Object.entries(finalPayload))
+                formData.append(i[0], i[1]);
+            if (finalPayload.thumb)
+                formData.append("thumb", finalPayload.thumb[0]);
+            if (finalPayload.images) {
+                for (let image of finalPayload.images)
+                    formData.append("images", image);
+            }
+            const response = await apiCreateProduct(formData);
+            if (response.success) {
+                toast.success(response.message);
+            } else {
+                toast.error(response.message);
+            }
         }
     };
+
+    const handlePreviewThumb = async (file) => {
+        const base64Thumb = await filetoBase64(file);
+        setPreview((prev) => ({ ...prev, thumb: base64Thumb }));
+    };
+
+    const handlePreviewImages = async (files) => {
+        const imagesPreview = [];
+        for (let file of files) {
+            if (file.type !== "image/png" && file.type !== "image/jpeg") {
+                toast.warning("File not supported! Please try again.");
+                return;
+            }
+            const base64 = await filetoBase64(file);
+            imagesPreview.push({ name: file.name, path: base64 });
+        }
+        setPreview((prev) => ({ ...prev, images: imagesPreview }));
+    };
+
+    // const handleRemoveImage = (imgName) => {
+    //     const files = [...watch("images")];
+    //     reset({
+    //         images: files?.filter((el) => el.name !== imgName),
+    //     });
+    //     if (preview.images?.some((el) => el.name === imgName))
+    //         setPreview((prev) => ({
+    //             ...prev,
+    //             images: prev.images?.filter((el) => el.name !== imgName),
+    //         }));
+    // };
+
+    useEffect(() => {
+        handlePreviewThumb(watch("thumb")[0]);
+    }, [watch("thumb")]);
+
+    useEffect(() => {
+        handlePreviewImages(watch("images"));
+    }, [watch("images")]);
 
     return (
         <div className="bg-white h-screen p-5">
@@ -156,6 +214,13 @@ const CreateProduct = () => {
                                 {`${errors["thumb"]?.message}`}
                             </div>
                         )}
+                        {preview.thumb && (
+                            <img
+                                src={preview.thumb}
+                                alt="thumbnail"
+                                className="w-[200px] h-[150px] object-cover"
+                            />
+                        )}
                     </div>
                     <div className="my-[10px]">
                         <label htmlFor="images" className="block my-[5px]">
@@ -172,6 +237,43 @@ const CreateProduct = () => {
                         {errors["images"] && (
                             <div className="w-full text-error text-[10px]">
                                 {`${errors["images"]?.message}`}
+                            </div>
+                        )}
+                        {preview.images?.length > 0 && (
+                            <div className="my-4 flex w-full gap-3 flex-wrap">
+                                {preview.images?.map((image, index) => (
+                                    <div
+                                        onMouseEnter={() =>
+                                            setHoverElement(image.name)
+                                        }
+                                        className="w-fit relative"
+                                        onMouseLeave={() =>
+                                            setHoverElement(null)
+                                        }
+                                    >
+                                        <img
+                                            key={index}
+                                            src={image.path}
+                                            alt="image"
+                                            className="w-[200px] h-[150px] object-cover"
+                                        />
+                                        {/* {hoverElment === image.name && (
+                                            <div
+                                                className="absolute cursor-pointer inset-0 bg-overplay flex items-center justify-center"
+                                                onClick={() =>
+                                                    handleRemoveImage(
+                                                        image.name
+                                                    )
+                                                }
+                                            >
+                                                <icons.FaTrashAlt
+                                                    className="text-[#ececec]"
+                                                    size={24}
+                                                />
+                                            </div>
+                                        )} */}
+                                    </div>
+                                ))}
                             </div>
                         )}
                     </div>
