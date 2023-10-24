@@ -88,22 +88,8 @@ const ManageUser = () => {
         fetchUsers(queries);
     }, [queriesDebounce, params, update]);
 
-    console.log(editUser);
-
     return (
         <div className="bg-white h-screen p-5">
-            <ToastContainer
-                position="top-right"
-                autoClose={5000}
-                hideProgressBar={false}
-                newestOnTop={false}
-                closeOnClick
-                rtl={false}
-                pauseOnFocusLoss
-                draggable
-                pauseOnHover
-                theme="light"
-            />
             <ToastContainer />
             <h1 className="text-[28px] font-bold">Manage Users</h1>
 

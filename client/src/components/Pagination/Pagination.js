@@ -7,26 +7,32 @@ import { useSearchParams } from "react-router-dom";
 
 const Pagination = ({ title, totalCount }) => {
     const [params] = useSearchParams();
-    const pagination = usePagination(totalCount, params.get("page") || 1);
+    const pagination = usePagination(totalCount, +params.get("page") || 1);
     const range = () => {
         const currentPage = +params.get("page");
         const pagesize = +process.env.REACT_APP_PRODUCT_LIMIT || 10;
-        const start = (currentPage - 1) * pagesize + 1;
+        const start = Math.min((currentPage - 1) * pagesize + 1, totalCount);
         const end = Math.min(currentPage * pagesize, totalCount);
         return `${start} - ${end}`;
     };
 
     return (
         <div className="flex justify-between items-center">
-            {!+params.get("page") && (
-                <span className="">{`Show ${title} 1 - ${
-                    process.env.REACT_APP_PRODUCT_LIMIT || 10
-                } of ${totalCount}`}</span>
-            )}
             {!+params.get("page") ? (
-                <div className=""></div>
+                <span className="">{`Show ${title} ${Math.min(
+                    totalCount,
+                    1
+                )} - ${Math.min(
+                    +process.env.REACT_APP_PRODUCT_LIMIT,
+                    totalCount
+                )} of ${totalCount}`}</span>
             ) : (
+                ""
+            )}
+            {+params.get("page") ? (
                 <span className="">{`Show ${title} ${range()} of ${totalCount}`}</span>
+            ) : (
+                ""
             )}
             <div className="flex items-center">
                 {pagination?.map((item) => (

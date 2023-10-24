@@ -50,6 +50,11 @@ const CreateProduct = () => {
             }
             const response = await apiCreateProduct(formData);
             if (response.success) {
+                reset();
+                setPayload({
+                    thumb: "",
+                    images: [],
+                });
                 toast.success(response.message);
             } else {
                 toast.error(response.message);

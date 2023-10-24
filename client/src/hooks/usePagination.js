@@ -4,15 +4,15 @@ import icons from "../ultils/icons";
 
 const usePagination = (totalProductCount, currentPage, siblingCount = 1) => {
     const paginationArray = useMemo(() => {
-        const pageSize = process.env.REACT_APP_PRODUCT_LIMIT || 10;
-        const paginationCount = Math.ceil(totalProductCount / pageSize);
-        const totalPaginationItem = siblingCount + 5;
+        const pageSize = +process.env.REACT_APP_PRODUCT_LIMIT || 10;
+        const paginationCount = Math.ceil(+totalProductCount / pageSize);
+        const totalPaginationItem = +siblingCount + 5;
 
         if (paginationCount <= totalPaginationItem)
             return generateRange(1, paginationCount);
 
         const isShowLeft = currentPage - siblingCount > 2;
-        const isShowRight = currentPage + siblingCount < paginationCount - 2;
+        const isShowRight = currentPage + siblingCount < paginationCount - 1;
 
         if (isShowLeft && !isShowRight) {
             const rightStart = paginationCount - 4;

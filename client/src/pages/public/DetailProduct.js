@@ -8,6 +8,7 @@ import SelectQuantity from "../../components/Select/SelectQuantity";
 import icons from "../../ultils/icons";
 import { apiGetProduct, apiGetProducts } from "../../apis/products";
 import { formatMoney, renderRatings } from "../../ultils/helpers";
+import { ToastContainer, toast } from "react-toastify";
 import Slider from "react-slick";
 import ReactImageMagnify from "react-image-magnify";
 import DOMPurify from "dompurify";
@@ -30,6 +31,7 @@ const DetailProduct = () => {
     const [products, setProducts] = useState(null);
     const [quantity, setQuantity] = useState(1);
     const [update, setUpdate] = useState(false);
+    const [isFull, setIsFull] = useState(false);
 
     useEffect(() => {
         const fetchProducts = async () => {
@@ -70,7 +72,15 @@ const DetailProduct = () => {
             if (flag === "minus") {
                 setQuantity((prev) => +prev - 1);
             } else if (flag === "plus") {
-                setQuantity((prev) => +prev + 1);
+                if (!(quantity > product?.quantity - 1)) {
+                    setQuantity((prev) => +prev + 1);
+                } else {
+                    setIsFull(true);
+                    toast.error(
+                        "The quantity of products in stock is out of stock!"
+                    );
+                }
+                return;
             }
         },
         [quantity]
@@ -83,6 +93,7 @@ const DetailProduct = () => {
 
     return (
         <React.Fragment>
+            <ToastContainer />
             <BreadCrumb title={product?.title} category={product?.category} />
             <div className="w-main m-auto mb-[50px]">
                 <div className="grid grid-cols-[36%_60%] gap-[50px]">
@@ -213,6 +224,7 @@ const DetailProduct = () => {
                                         </div>
                                         <SelectQuantity
                                             quantity={quantity}
+                                            isFull={isFull}
                                             handleQuantity={handleQuantity}
                                             handleChangeQuantity={
                                                 handleChangeQuantity
