@@ -115,3 +115,13 @@ export const filetoBase64 = (file) => {
         reader.onerror = (error) => reject(error);
     });
 };
+
+export const formatCurrency = (amount) => {
+    if (amount >= 1000000) {
+        return Math.round(amount / 1000000) + " triệu đồng";
+    } else if (amount >= 1000) {
+        return Math.round(amount / 1000) + " nghìn đồng";
+    } else {
+        return amount + " đồng";
+    }
+};
