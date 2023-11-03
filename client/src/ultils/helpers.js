@@ -118,9 +118,11 @@ export const filetoBase64 = (file) => {
 
 export const formatCurrency = (amount) => {
     if (amount >= 1000000) {
-        return Math.round(amount / 1000000) + " triệu đồng";
+        return (amount / 1000000).toFixed(1) + " triệu đồng";
+    } else if (amount >= 100000) {
+        return (amount / 1000).toFixed(1) + " trăm nghìn đồng";
     } else if (amount >= 1000) {
-        return Math.round(amount / 1000) + " nghìn đồng";
+        return (amount / 1000).toFixed(1) + " nghìn đồng";
     } else {
         return amount + " đồng";
     }

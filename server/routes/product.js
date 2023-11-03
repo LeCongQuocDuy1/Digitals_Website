@@ -29,7 +29,22 @@ router.put(
     uploadCloud.array("images", 10),
     controllers.uploadImagesProduct
 );
-router.put("/:pid", verifyAccessToken, isAdmin, controllers.updateProduct);
+router.put(
+    "/:pid",
+    verifyAccessToken,
+    isAdmin,
+    uploadCloud.fields([
+        {
+            name: "images",
+            maxCount: 10,
+        },
+        {
+            name: "thumb",
+            maxCount: 1,
+        },
+    ]),
+    controllers.updateProduct
+);
 router.delete("/:pid", verifyAccessToken, isAdmin, controllers.deleteProduct);
 router.get("/:pid", controllers.getProduct);
 
