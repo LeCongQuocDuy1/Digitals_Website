@@ -1,15 +1,15 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { memo, useCallback, useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
 import InputForm from "../../components/Input/InputForm";
 import MarkdownEditor from "../../components/Input/MarkdownEditor";
 import SelectForm from "../../components/Select/SelectForm";
 import Button from "../../components/Button/Button";
-import { useForm } from "react-hook-form";
-import { ToastContainer, toast } from "react-toastify";
+import { filetoBase64, validate } from "../../ultils/helpers";
 import { useSelector } from "react-redux";
-import { validate, filetoBase64 } from "../../ultils/helpers";
-import { apiCreateProduct } from "../../apis/products";
+import { ToastContainer, toast } from "react-toastify";
+import { apiUpdateProduct } from "../../apis/products";
 
-const CreateProduct = () => {
+const UpdateProduct = ({ editProduct, setEditProduct, render }) => {
     const {
         register,
         formState: { errors },
@@ -18,48 +18,21 @@ const CreateProduct = () => {
         watch,
     } = useForm();
     const { categories } = useSelector((state) => state.app);
+
     const [payload, setPayload] = useState({
         description: "",
     });
+
     const [preview, setPreview] = useState({
         thumb: null,
         images: [],
     });
+
     const [invalidFields, setInvalidFields] = useState([]);
+
     const changeValue = useCallback((e) => {
         setPayload(e);
     });
-
-    const handleCreateProduct = async (data) => {
-        const invalids = validate(payload, setInvalidFields);
-        if (invalids === 0) {
-            if (data?.category)
-                data.category = categories?.find(
-                    (c) => c._id === data.category
-                ).title;
-            const finalPayload = { ...data, ...payload };
-            const formData = new FormData();
-            for (let i of Object.entries(finalPayload))
-                formData.append(i[0], i[1]);
-            if (finalPayload.thumb)
-                formData.append("thumb", finalPayload.thumb[0]);
-            if (finalPayload.images) {
-                for (let image of finalPayload.images)
-                    formData.append("images", image);
-            }
-            const response = await apiCreateProduct(formData);
-            if (response.success) {
-                reset();
-                setPayload({
-                    thumb: "",
-                    images: [],
-                });
-                toast.success(response.message);
-            } else {
-                toast.error(response.message);
-            }
-        }
-    };
 
     const handlePreviewThumb = async (file) => {
         const base64Thumb = await filetoBase64(file);
@@ -69,43 +42,86 @@ const CreateProduct = () => {
     const handlePreviewImages = async (files) => {
         const imagesPreview = [];
         for (let file of files) {
-            if (file.type !== "image/png" && file.type !== "image/jpeg") {
+            if (
+                file.type !== "image/png" &&
+                file.type !== "image/jpeg" &&
+                file.type !== "image/jpg"
+            ) {
                 toast.warning("File not supported! Please try again.");
                 return;
             }
             const base64 = await filetoBase64(file);
-            imagesPreview.push({ name: file.name, path: base64 });
+            imagesPreview.push(base64);
         }
         setPreview((prev) => ({ ...prev, images: imagesPreview }));
     };
 
-    useEffect(() => {
-        handlePreviewThumb(watch("thumb")[0]);
-    }, [watch("thumb")]);
+    const handleUpdateProduct = async (data) => {
+        const invalids = validate(payload, setInvalidFields);
+        if (invalids === 0) {
+            if (data?.category)
+                data.category = categories?.find(
+                    (c) => c.title === data.category
+                )?.title;
+            const finalPayload = { ...data, ...payload };
+            finalPayload.thumb =
+                data?.thumb?.length === 0 ? preview.thumb : data.thumb[0];
+            const formData = new FormData();
+            for (let i of Object.entries(finalPayload))
+                formData.append(i[0], i[1]);
+            finalPayload.images =
+                data?.images?.length === 0 ? preview.images : data.images;
+            for (let image of finalPayload.images)
+                formData.append("images", image);
+            const response = await apiUpdateProduct(formData, editProduct._id);
+            if (response.success) {
+                render();
+                setEditProduct(null);
+                toast.success(response.message);
+            } else {
+                toast.error(response.message);
+            }
+        }
+    };
 
     useEffect(() => {
-        handlePreviewImages(watch("images"));
+        if (watch("thumb") instanceof FileList && watch("thumb").length > 0) {
+            handlePreviewThumb(watch("thumb")[0]);
+        }
+    }, [watch("thumb")]);
+    useEffect(() => {
+        if (watch("images") instanceof FileList && watch("images").length > 0) {
+            handlePreviewImages(watch("images"));
+        }
     }, [watch("images")]);
 
-    return (
-        <div className="bg-white p-5">
-            <ToastContainer
-                position="top-right"
-                autoClose={5000}
-                hideProgressBar={false}
-                newestOnTop={false}
-                closeOnClick
-                rtl={false}
-                pauseOnFocusLoss
-                draggable
-                pauseOnHover
-                theme="light"
-            />
-            <ToastContainer />
-            <h1 className="text-[28px] font-bold">Create New Product</h1>
+    useEffect(() => {
+        reset({
+            title: editProduct?.title || "",
+            price: editProduct?.price || "",
+            quantity: editProduct?.quantity || "",
+            color: editProduct?.color || "",
+            category: editProduct?.category || "",
+            brand: editProduct?.brand.toLowerCase() || "",
+        });
+        setPayload({
+            description:
+                typeof editProduct?.description === "object"
+                    ? editProduct?.description?.join(", ")
+                    : editProduct?.description,
+        });
+        setPreview({
+            thumb: editProduct?.thumb || "",
+            images: editProduct?.images || [],
+        });
+    }, [editProduct]);
 
+    return (
+        <div className="">
+            <ToastContainer />
+            <h1 className="text-[28px] font-bold">Update Products</h1>
             <div className="mt-[50px]">
-                <form onSubmit={handleSubmit(handleCreateProduct)}>
+                <form onSubmit={handleSubmit(handleUpdateProduct)}>
                     <InputForm
                         label="Name"
                         register={register}
@@ -118,6 +134,7 @@ const CreateProduct = () => {
                     />
                     <MarkdownEditor
                         name="description"
+                        value={payload.description}
                         changeValue={changeValue}
                         label="Description"
                         invalidFields={invalidFields}
@@ -167,7 +184,7 @@ const CreateProduct = () => {
                                 required: "Category is required!",
                             }}
                             options={categories?.map((category) => ({
-                                code: category._id,
+                                code: category.title,
                                 value: category.title,
                             }))}
                         />
@@ -182,10 +199,10 @@ const CreateProduct = () => {
                             options={categories
                                 ?.find(
                                     (category) =>
-                                        category._id === watch("category")
+                                        category.title === watch("category")
                                 )
                                 ?.brand?.map((brandEl) => ({
-                                    code: brandEl,
+                                    code: brandEl.toLowerCase(),
                                     value: brandEl,
                                 }))}
                         />
@@ -194,21 +211,15 @@ const CreateProduct = () => {
                         <label htmlFor="thumb" className="block my-[5px]">
                             Thumbnail
                         </label>
-                        <input
-                            type="file"
-                            id="thumb"
-                            {...register("thumb", {
-                                required: "Thumbnail is required!",
-                            })}
-                        />
+                        <input type="file" id="thumb" {...register("thumb")} />
                         {errors["thumb"] && (
                             <div className="w-full text-error text-[10px]">
                                 {`${errors["thumb"]?.message}`}
                             </div>
                         )}
-                        {preview.thumb && (
+                        {preview?.thumb && (
                             <img
-                                src={preview.thumb}
+                                src={preview?.thumb}
                                 alt="thumbnail"
                                 className="w-[200px] h-[150px] object-cover"
                             />
@@ -221,9 +232,7 @@ const CreateProduct = () => {
                         <input
                             type="file"
                             id="images"
-                            {...register("images", {
-                                required: "Images is required!",
-                            })}
+                            {...register("images")}
                             multiple
                         />
                         {errors["images"] && (
@@ -231,38 +240,31 @@ const CreateProduct = () => {
                                 {`${errors["images"]?.message}`}
                             </div>
                         )}
-                        {preview.images?.length > 0 && (
+                        {preview?.images?.length > 0 && (
                             <div className="my-4 flex w-full gap-3 flex-wrap">
-                                {preview.images?.map((image, index) => (
-                                    <div className="w-fit relative">
+                                {preview?.images?.map((image, index) => (
+                                    <div className="w-fit relative" key={index}>
                                         <img
-                                            key={index}
-                                            src={image.path}
+                                            src={image}
                                             alt="image"
                                             className="w-[200px] h-[150px] object-cover"
                                         />
-                                        {/* {hoverElment === image.name && (
-                                            <div
-                                                className="absolute cursor-pointer inset-0 bg-overplay flex items-center justify-center"
-                                                onClick={() =>
-                                                    handleRemoveImage(
-                                                        image.name
-                                                    )
-                                                }
-                                            >
-                                                <icons.FaTrashAlt
-                                                    className="text-[#ececec]"
-                                                    size={24}
-                                                />
-                                            </div>
-                                        )} */}
                                     </div>
                                 ))}
                             </div>
                         )}
                     </div>
                     <div className="w-full mt-[20px]">
-                        <Button type="submit" value="Create" wf={true} />
+                        <Button type="submit" value="Update" wf={true} />
+                    </div>
+                    <div className="w-full mt-[20px]">
+                        <Button
+                            handleOnClick={() => setEditProduct(null)}
+                            type="button"
+                            value="Back"
+                            wf={true}
+                            cancel={true}
+                        />
                     </div>
                 </form>
             </div>
@@ -270,4 +272,4 @@ const CreateProduct = () => {
     );
 };
 
-export default CreateProduct;
+export default memo(UpdateProduct);
