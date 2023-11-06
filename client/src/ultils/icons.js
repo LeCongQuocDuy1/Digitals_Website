@@ -17,8 +17,8 @@ import {
     FaUserCircle,
     FaTrashAlt,
 } from "react-icons/fa";
-import { BiChevronDown, BiSearch } from "react-icons/bi";
-import { RiPagesLine } from "react-icons/ri";
+import { BiChevronDown, BiSearch, BiEdit, BiCategory } from "react-icons/bi";
+import { RiPagesLine, RiDeleteBinLine } from "react-icons/ri";
 import {
     HiMail,
     HiOutlineViewList,
@@ -102,6 +102,9 @@ const icons = {
     AiFillCaretRight,
     BiSearch,
     FaTrashAlt,
+    BiEdit,
+    BiCategory,
+    RiDeleteBinLine,
 };
 
 export default icons;

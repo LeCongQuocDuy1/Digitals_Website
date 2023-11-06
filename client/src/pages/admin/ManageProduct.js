@@ -10,6 +10,7 @@ import { useSearchParams } from "react-router-dom";
 import UpdateProduct from "./UpdateProduct";
 import Swal from "sweetalert2";
 import { ToastContainer, toast } from "react-toastify";
+import CustomizeVarriants from "../../components/Common/CustomizeVarriants";
 
 const ManageProduct = () => {
     const {
@@ -25,6 +26,7 @@ const ManageProduct = () => {
     const [products, setProducts] = useState(null);
     const [editProduct, setEditProduct] = useState(null);
     const [update, setUpdate] = useState(false);
+    const [customizeVarriants, setCustomizeVarriants] = useState(null);
     const [counts, setCounts] = useState(0);
     const render = useCallback(() => {
         setUpdate(!update);
@@ -66,6 +68,7 @@ const ManageProduct = () => {
 
     return (
         <div className="bg-white p-5 relative">
+            <ToastContainer />
             {editProduct && (
                 <div className="absolute inset-0 bg-white p-5">
                     <UpdateProduct
@@ -75,7 +78,15 @@ const ManageProduct = () => {
                     />
                 </div>
             )}
-            <ToastContainer />
+            {customizeVarriants && (
+                <div className="absolute inset-0 bg-white p-5">
+                    <CustomizeVarriants
+                        customizeVarriants={customizeVarriants}
+                        setCustomizeVarriants={setCustomizeVarriants}
+                        render={render}
+                    />
+                </div>
+            )}
             <h1 className="text-[28px] font-bold">Manage Products</h1>
             <div className="flex justify-end py-4 mt-[10px]">
                 <InputField
@@ -122,6 +133,9 @@ const ManageProduct = () => {
                                     Ratings
                                 </th>
                                 <th scope="col" className="px-6 py-3">
+                                    Varriants Count
+                                </th>
+                                <th scope="col" className="px-6 py-3">
                                     Action
                                 </th>
                             </tr>
@@ -161,14 +175,17 @@ const ManageProduct = () => {
                                     <td className="px-6 py-4">{`${product?.sold}`}</td>
                                     <td className="px-6 py-4">{`${product?.color}`}</td>
                                     <td className="px-6 py-4">{`${product?.totalRatings}`}</td>
+                                    <td className="px-6 py-4">{`${
+                                        product?.varriants?.length || 0
+                                    }`}</td>
                                     <td className="px-6 py-4 flex items-center gap-2 mt-[10px]">
                                         <div
                                             onClick={() =>
                                                 setEditProduct(product)
                                             }
-                                            className="flex justify-center w-full font-medium bg-blue-500 hover:bg-blue-600 text-white p-2 rounded-md cursor-pointer"
+                                            className="mt-[7px]"
                                         >
-                                            Edit
+                                            <icons.BiEdit className="text-[24px] text-blue-500 hover:text-blue-600 cursor-pointer" />
                                         </div>
                                         <div
                                             onClick={() =>
@@ -176,9 +193,17 @@ const ManageProduct = () => {
                                                     product?._id
                                                 )
                                             }
-                                            className="flex justify-center w-full font-medium bg-red-500 hover:bg-red-600 text-white p-2 rounded-md cursor-pointer"
+                                            className="mt-[7px]"
                                         >
-                                            Delete
+                                            <icons.RiDeleteBinLine className="text-[24px] text-red-500 hover:text-red-600 cursor-pointer" />
+                                        </div>
+                                        <div
+                                            onClick={() =>
+                                                setCustomizeVarriants(product)
+                                            }
+                                            className="mt-[7px]"
+                                        >
+                                            <icons.BiCategory className="text-[24px] text-green-500 hover:text-green-600 cursor-pointer" />
                                         </div>
                                     </td>
                                 </tr>

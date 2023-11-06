@@ -29,9 +29,39 @@ const DetailProduct = () => {
     const [currentThumb, setCurrentThumb] = useState(null);
     const [product, setProduct] = useState(null);
     const [products, setProducts] = useState(null);
+    const [varriant, setVarriant] = useState(null);
     const [quantity, setQuantity] = useState(1);
     const [update, setUpdate] = useState(false);
     const [isFull, setIsFull] = useState(false);
+    const [currentProduct, setCurrentProduct] = useState({
+        title: "",
+        thumb: "",
+        images: [],
+        price: "",
+        color: "",
+    });
+
+    useEffect(() => {
+        if (varriant) {
+            setCurrentProduct({
+                title:
+                    product?.varriants?.find((el) => el.sku === varriant)
+                        ?.title || product?.title,
+                thumb:
+                    product?.varriants?.find((el) => el.sku === varriant)
+                        ?.thumb || product?.thumb,
+                color:
+                    product?.varriants?.find((el) => el.sku === varriant)
+                        ?.color || product?.color,
+                price:
+                    product?.varriants?.find((el) => el.sku === varriant)
+                        ?.price || product?.price,
+                images:
+                    product?.varriants?.find((el) => el.sku === varriant)
+                        ?.images || product?.images,
+            });
+        }
+    }, [varriant]);
 
     useEffect(() => {
         const fetchProducts = async () => {
@@ -94,7 +124,10 @@ const DetailProduct = () => {
     return (
         <React.Fragment>
             <ToastContainer />
-            <BreadCrumb title={product?.title} category={product?.category} />
+            <BreadCrumb
+                title={currentProduct?.title || product?.title}
+                category={currentProduct?.category || product?.category}
+            />
             <div className="w-main m-auto mb-[50px]">
                 <div className="grid grid-cols-[36%_60%] gap-[50px]">
                     <div className="bg-white">
@@ -103,10 +136,10 @@ const DetailProduct = () => {
                                 smallImage: {
                                     alt: "Wristwatch by Ted Baker London",
                                     isFluidWidth: true,
-                                    src: currentThumb,
+                                    src: currentProduct?.thumb || currentThumb,
                                 },
                                 largeImage: {
-                                    src: currentThumb,
+                                    src: currentProduct?.thumb || currentThumb,
                                     width: 1000,
                                     height: 1000,
                                 },
@@ -117,17 +150,32 @@ const DetailProduct = () => {
                         />
                         <div className="my-[20px] overflow-x-hidden h-[200px]">
                             <Slider {...settings}>
-                                {product?.images.map((image, index) => (
-                                    <img
-                                        key={index}
-                                        src={image}
-                                        onClick={(e) =>
-                                            handleChangeThumb(e, image)
-                                        }
-                                        alt=""
-                                        className="border-bd-main h-[200px] object-cover cursor-pointer"
-                                    />
-                                ))}
+                                {currentProduct?.images.length === 0 &&
+                                    product?.images.map((image, index) => (
+                                        <img
+                                            key={index}
+                                            src={image}
+                                            onClick={(e) =>
+                                                handleChangeThumb(e, image)
+                                            }
+                                            alt=""
+                                            className="border-bd-main h-[200px] object-cover cursor-pointer"
+                                        />
+                                    ))}
+                                {currentProduct?.images.length > 0 &&
+                                    currentProduct?.images.map(
+                                        (image, index) => (
+                                            <img
+                                                key={index}
+                                                src={image}
+                                                onClick={(e) =>
+                                                    handleChangeThumb(e, image)
+                                                }
+                                                alt=""
+                                                className="border-bd-main h-[200px] object-cover cursor-pointer"
+                                            />
+                                        )
+                                    )}
                             </Slider>
                         </div>
                     </div>
@@ -135,7 +183,9 @@ const DetailProduct = () => {
                         <div className="col-span-2">
                             <div className="flex items-center justify-between mb-[20px]">
                                 <div className="text-[30px] font-[600] text-[#000]">
-                                    {`${formatMoney(product?.price)} VND`}
+                                    {`${formatMoney(
+                                        currentProduct?.price || product?.price
+                                    )} VND`}
                                 </div>
                                 <span className="text-[14px] text-red-500">
                                     In stock: {product?.quantity}
@@ -176,18 +226,18 @@ const DetailProduct = () => {
                                 )}
                             </ul>
                             <div className="">
-                                <div className="flex items-center gap-[20px] mb-[20px]">
-                                    <div className="flex flex-col justify-between gap-[20px] h-[200px]">
-                                        <div className="text-[15px] font-[600] text-[#000]">
+                                <div className="flex gap-[20px] mb-[20px]">
+                                    <div className="flex flex-col">
+                                        <div className="text-[15px] font-[600] text-[#000] mb-[34px]">
                                             Internal
                                         </div>
-                                        <div className="text-[15px] font-[600] text-[#000]">
+                                        <div className="text-[15px] font-[600] text-[#000] mb-[55px]">
                                             Color
                                         </div>
-                                        <div className="text-[15px] font-[600] text-[#000]">
+                                        <div className="text-[15px] font-[600] text-[#000] mb-[35px]">
                                             RAM
                                         </div>
-                                        <div className="text-[15px] font-[600] text-[#000]">
+                                        <div className="text-[15px] font-[600] text-[#000] mb-[20px]">
                                             Quantity
                                         </div>
                                     </div>
@@ -204,15 +254,70 @@ const DetailProduct = () => {
                                             </div>
                                         </div>
                                         <div className="flex items-center gap-[10px]">
-                                            <div className="cursor-pointer border-[1px] border-main p-[10px] text-main text-[14px]">
-                                                BLACK
+                                            <div
+                                                onClick={() =>
+                                                    setVarriant(null)
+                                                }
+                                                className={`cursor-pointer border-[1px] ${
+                                                    !varriant
+                                                        ? "border-main text-main"
+                                                        : "border-[#ccc] text-[#505050] hover:border-main hover:text-main"
+                                                } p-[10px] text-[14px] flex items-center gap-2`}
+                                            >
+                                                <img
+                                                    src={product?.thumb}
+                                                    alt=""
+                                                    className="w-8 h-8 rounded-md object-cover"
+                                                />
+                                                <div className="flex flex-col">
+                                                    <span>
+                                                        {product?.color}
+                                                    </span>
+                                                    <span className="text-sm">
+                                                        {product?.price}
+                                                    </span>
+                                                </div>
                                             </div>
-                                            <div className="cursor-pointer border-[1px] border-[#ccc] p-[10px] text-[#505050] text-[14px]">
-                                                WHITE
-                                            </div>
-                                            <div className="cursor-pointer border-[1px] border-[#ccc] p-[10px] text-[#505050] text-[14px]">
-                                                GOLD
-                                            </div>
+                                            {product?.varriants.map(
+                                                (item, index) => {
+                                                    return (
+                                                        <div
+                                                            onClick={() =>
+                                                                setVarriant(
+                                                                    item.sku
+                                                                )
+                                                            }
+                                                            key={index}
+                                                            className={`cursor-pointer border-[1px] ${
+                                                                varriant ===
+                                                                item?.sku
+                                                                    ? "border-main text-main"
+                                                                    : "border-[#ccc] text-[#505050] hover:border-main hover:text-main"
+                                                            } p-[10px] text-[14px] flex items-center gap-2`}
+                                                        >
+                                                            <img
+                                                                src={
+                                                                    item?.thumb
+                                                                }
+                                                                alt=""
+                                                                className="w-8 h-8 rounded-md object-cover"
+                                                            />
+                                                            <div className="flex flex-col">
+                                                                <span>
+                                                                    {
+                                                                        item?.color
+                                                                    }
+                                                                </span>
+                                                                <span className="text-sm">
+                                                                    {
+                                                                        item?.price
+                                                                    }
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                    );
+                                                }
+                                            )}
                                         </div>
                                         <div className="flex items-center gap-[10px]">
                                             <div className="cursor-pointer border-[1px] border-main p-[10px] text-main text-[14px]">

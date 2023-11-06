@@ -11,9 +11,10 @@ const InputForm = ({
     placeholder,
     width,
     defaultValue,
+    readOnly,
 }) => {
     return (
-        <div className="">
+        <div className="w-full">
             {label && <label htmlFor={id}>{label}</label>}
             <input
                 type={type}
@@ -25,6 +26,7 @@ const InputForm = ({
                     width ? width : "w-full"
                 } text-[16px] focus:shadow-transparent bg-[#eff2f2] text-[#000]`}
                 defaultValue={defaultValue}
+                readOnly={readOnly}
             />
             {errors[id] && (
                 <div className="w-full text-error text-[10px]">

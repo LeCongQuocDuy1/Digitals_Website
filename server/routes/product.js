@@ -30,6 +30,22 @@ router.put(
     controllers.uploadImagesProduct
 );
 router.put(
+    "/varriant/:pid",
+    verifyAccessToken,
+    isAdmin,
+    uploadCloud.fields([
+        {
+            name: "images",
+            maxCount: 10,
+        },
+        {
+            name: "thumb",
+            maxCount: 1,
+        },
+    ]),
+    controllers.addVarriant
+);
+router.put(
     "/:pid",
     verifyAccessToken,
     isAdmin,
